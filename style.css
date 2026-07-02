@@ -350,8 +350,14 @@ main {
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
-.bento-large { grid-column: span 2; grid-row: span 2; }
+.bento-large { grid-column: span 2; }
 .bento-wide { grid-column: span 2; }
+.bento-card .pill, .edu-card .pill {
+  background: var(--bg);
+  font-size: 0.72rem;
+  padding: 0.3rem 0.7rem;
+}
+.bento-card .skill-pills, .edu-card .skill-pills { margin-bottom: 0; gap: 0.5rem; }
 
 .bento-card {
   position: relative;
@@ -447,23 +453,49 @@ main {
 }
 .post-title:hover { color: var(--accent); }
 
-/* Open source */
-.oss-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-.oss-card {
+/* Experience timeline */
+.timeline-exp li { display: block; }
+.exp-head {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.3rem 1rem;
+  margin-bottom: 0.4rem;
+}
+.exp-role {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.exp-company {
+  color: var(--accent);
+  font-weight: 500;
+}
+.exp-date {
+  color: var(--muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.exp-desc {
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 62ch;
+  margin: 0;
+}
+
+/* Education card */
+.edu-card {
+  display: flex;
+  gap: 1.25rem;
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 1.25rem;
+  border-radius: 20px;
+  padding: 1.75rem;
   background: var(--card);
   box-shadow: var(--shadow);
-  transition: transform 0.2s ease, border-color 0.2s ease;
 }
-.oss-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+.edu-card .oss-card-head { flex-wrap: wrap; gap: 0.3rem 1rem; }
+.edu-card p { color: var(--muted); font-size: 0.92rem; margin: 0.3rem 0 1rem; }
+
+/* Education card pieces (shared icon/head/name/star styles) */
 .oss-icon {
   flex-shrink: 0;
   width: 42px;
@@ -486,7 +518,6 @@ main {
 }
 .oss-name { font-weight: 600; }
 .oss-star { color: var(--muted); font-size: 0.85rem; }
-.oss-card p { color: var(--muted); font-size: 0.88rem; margin: 0; }
 
 /* Contact */
 .contact-section { display: flex; justify-content: center; }
