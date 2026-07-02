@@ -10,6 +10,7 @@ Bu dosya, portfolyo sitesi üzerinde yapılanları ve kalan işleri takip etmek 
 - [x] Açık/koyu tema toggle özelliği (localStorage ile hatırlanıyor)
 - [x] CV eklendi: `assets/Eren_Ozcan_CV.pdf`, hero/nav/contact bölümlerine indirme linki kondu
 - [x] Git reposu oluşturuldu ve GitHub'a push edildi: https://github.com/Eren-Ozcan/portfolio (public)
+- [x] Tasarım cobanov.dev'e çok benzediği için baştan tasarlandı: gradient/bento-grid stil, Space Grotesk + Inter font, gradient avatar halkası, scroll-reveal animasyonları — artık brutalist/monospace değil
 
 ## Yapılacaklar
 

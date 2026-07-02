@@ -6,20 +6,24 @@
 <title>Eren Özcan — Developer</title>
 <meta name="description" content="Eren Özcan | Game & Mobile Developer — Kocaeli, Türkiye">
 <link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="noise"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
 
 <header class="topbar">
-  <a href="#" class="logo">EÖ<span class="cursor">_</span></a>
+  <a href="#" class="logo">eren<span class="dot">.</span>dev</a>
   <nav class="nav">
-    <a href="#projects">projects</a>
-    <a href="#writing">writing</a>
-    <a href="#oss">open source</a>
-    <a href="#contact">contact</a>
-    <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+    <a href="#projects">Projeler</a>
+    <a href="#writing">Yazılar</a>
+    <a href="#oss">Açık Kaynak</a>
+    <a href="#contact">İletişim</a>
+    <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener" class="nav-cv">CV</a>
   </nav>
   <button id="theme-toggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -30,35 +34,55 @@
 <main>
 
   <section class="hero">
-    <p class="eyebrow">merhaba, ben</p>
-    <h1>Eren Özcan</h1>
-    <h2 class="role">Game &amp; Mobile Developer</h2>
-    <p class="location">📍 Kocaeli, Türkiye</p>
-    <p class="bio">
-      Oyun geliştirme odaklı çalışan, aynı zamanda mobil uygulama tarafında da
-      üretim yapan bir yazılım geliştiricisiyim. Fikirden çalışan bir ürüne
-      giden süreci seviyorum — Unity/Unreal ile oyun mekanikleri kurmak,
-      React Native / Swift / Kotlin ile mobil uygulamalar geliştirmek en çok
-      vakit geçirdiğim alanlar.
-    </p>
-    <div class="links">
-      <a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:eren@example.com">Email</a>
-      <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://x.com/your-x" target="_blank" rel="noopener">X</a>
-      <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+    <div class="hero-text reveal">
+      <p class="eyebrow">📍 Kocaeli, Türkiye</p>
+      <h1>Merhaba, ben<br><span class="gradient-text">Eren Özcan</span></h1>
+      <p class="role">Game &amp; Mobile Developer</p>
+      <p class="bio">
+        Oyun geliştirme odaklı çalışan, aynı zamanda mobil uygulama tarafında
+        da üretim yapan bir yazılım geliştiricisiyim. Fikirden çalışan bir
+        ürüne giden süreci seviyorum.
+      </p>
+      <div class="skill-pills">
+        <span class="pill">Unity</span>
+        <span class="pill">Unreal Engine</span>
+        <span class="pill">React Native</span>
+        <span class="pill">Swift</span>
+        <span class="pill">Kotlin</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:eren@example.com">Merhaba de</a>
+        <a class="btn btn-ghost" href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV'yi indir</a>
+      </div>
+      <div class="social-row">
+        <a href="https://github.com/your-github" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
+        <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener" aria-label="LinkedIn">IN</a>
+        <a href="https://x.com/your-x" target="_blank" rel="noopener" aria-label="X">X</a>
+      </div>
+    </div>
+    <div class="hero-avatar reveal">
+      <div class="avatar-ring">
+        <span class="avatar-initials">EÖ</span>
+      </div>
+      <span class="floating-badge badge-1">🎮 Game Dev</span>
+      <span class="floating-badge badge-2">📱 Mobile</span>
+      <span class="floating-badge badge-3">🇹🇷 Kocaeli</span>
     </div>
   </section>
 
-  <section id="projects" class="section">
-    <h3 class="section-title"><span class="tag">01</span> Projeler</h3>
-    <p class="section-sub">Üzerinde çalıştığım / tamamladığım öne çıkan işler.</p>
+  <section id="projects" class="section reveal">
+    <div class="section-head">
+      <span class="section-badge">Projeler</span>
+      <h2>Öne çıkan işler</h2>
+      <p class="section-sub">Üzerinde çalıştığım / tamamladığım projelerden bir seçki.</p>
+    </div>
 
-    <div class="project-grid">
+    <div class="bento-grid">
 
-      <article class="project">
+      <article class="bento-card bento-large">
+        <div class="card-accent accent-purple"></div>
         <div class="project-head">
-          <h4>Proje Adı 1</h4>
+          <h3>Proje Adı 1</h3>
           <span class="stack">Unity · C#</span>
         </div>
         <p>Kısa açıklama: oyunun türü, çözdüğün problem ya da öne çıkan özelliği buraya yaz.</p>
@@ -68,35 +92,37 @@
         </div>
       </article>
 
-      <article class="project">
+      <article class="bento-card">
+        <div class="card-accent accent-coral"></div>
         <div class="project-head">
-          <h4>Proje Adı 2</h4>
-          <span class="stack">React Native · TypeScript</span>
+          <h3>Proje Adı 2</h3>
+          <span class="stack">React Native</span>
         </div>
-        <p>Kısa açıklama: mobil uygulamanın amacı, kullanıcı sayısı veya teknik zorluk.</p>
+        <p>Mobil uygulamanın amacı, kullanıcı sayısı veya teknik zorluk.</p>
         <div class="project-links">
-          <a href="#" target="_blank" rel="noopener">Repo →</a>
           <a href="#" target="_blank" rel="noopener">Store →</a>
         </div>
       </article>
 
-      <article class="project">
+      <article class="bento-card">
+        <div class="card-accent accent-teal"></div>
         <div class="project-head">
-          <h4>Proje Adı 3</h4>
-          <span class="stack">Unreal Engine · C++</span>
+          <h3>Proje Adı 3</h3>
+          <span class="stack">Unreal · C++</span>
         </div>
-        <p>Kısa açıklama: prototip mi, tam sürüm mü, hangi mekanikler üzerine kuruldu.</p>
+        <p>Prototip mi, tam sürüm mü, hangi mekanikler üzerine kuruldu.</p>
         <div class="project-links">
           <a href="#" target="_blank" rel="noopener">Repo →</a>
         </div>
       </article>
 
-      <article class="project">
+      <article class="bento-card bento-wide">
+        <div class="card-accent accent-purple"></div>
         <div class="project-head">
-          <h4>Proje Adı 4</h4>
+          <h3>Proje Adı 4</h3>
           <span class="stack">Swift · iOS</span>
         </div>
-        <p>Kısa açıklama: küçük bir araç, oyun ya da deneysel bir uygulama.</p>
+        <p>Küçük bir araç, oyun ya da deneysel bir uygulama.</p>
         <div class="project-links">
           <a href="#" target="_blank" rel="noopener">Repo →</a>
         </div>
@@ -105,64 +131,82 @@
     </div>
   </section>
 
-  <section id="writing" class="section">
-    <h3 class="section-title"><span class="tag">02</span> Yazılar</h3>
-    <p class="section-sub">Öğrendiklerimi ara sıra buraya not düşüyorum.</p>
+  <section id="writing" class="section reveal">
+    <div class="section-head">
+      <span class="section-badge">Yazılar</span>
+      <h2>Notlar &amp; öğrendiklerim</h2>
+      <p class="section-sub">Ara sıra öğrendiklerimi buraya not düşüyorum.</p>
+    </div>
 
-    <ul class="post-list">
+    <ul class="timeline">
       <li>
+        <span class="timeline-dot"></span>
         <span class="post-date">2026 — hazırlanıyor</span>
         <a href="#" class="post-title">Unity'de performans optimizasyonu: object pooling</a>
       </li>
       <li>
+        <span class="timeline-dot"></span>
         <span class="post-date">2026 — hazırlanıyor</span>
         <a href="#" class="post-title">React Native'de native modül yazmak</a>
       </li>
       <li>
+        <span class="timeline-dot"></span>
         <span class="post-date">2026 — hazırlanıyor</span>
         <a href="#" class="post-title">Küçük bir stüdyo olarak oyun yayınlama süreci</a>
       </li>
     </ul>
   </section>
 
-  <section id="oss" class="section">
-    <h3 class="section-title"><span class="tag">03</span> Açık Kaynak</h3>
-    <p class="section-sub">Yayınladığım araçlar ve katkıda bulunduğum projeler.</p>
+  <section id="oss" class="section reveal">
+    <div class="section-head">
+      <span class="section-badge">Açık Kaynak</span>
+      <h2>Paylaştığım araçlar</h2>
+      <p class="section-sub">Yayınladığım paketler ve katkıda bulunduğum projeler.</p>
+    </div>
 
     <div class="oss-grid">
       <a href="#" class="oss-card" target="_blank" rel="noopener">
-        <div class="oss-card-head">
-          <span class="oss-name">paket-adi</span>
-          <span class="oss-star">★ 0</span>
+        <span class="oss-icon">P</span>
+        <div class="oss-body">
+          <div class="oss-card-head">
+            <span class="oss-name">paket-adi</span>
+            <span class="oss-star">★ 0</span>
+          </div>
+          <p>Kısa açıklama: ne işe yarıyor, hangi dille yazıldı.</p>
         </div>
-        <p>Kısa açıklama: ne işe yarıyor, hangi dille yazıldı.</p>
       </a>
       <a href="#" class="oss-card" target="_blank" rel="noopener">
-        <div class="oss-card-head">
-          <span class="oss-name">baska-paket</span>
-          <span class="oss-star">★ 0</span>
+        <span class="oss-icon">B</span>
+        <div class="oss-body">
+          <div class="oss-card-head">
+            <span class="oss-name">baska-paket</span>
+            <span class="oss-star">★ 0</span>
+          </div>
+          <p>Kısa açıklama: ne işe yarıyor, hangi dille yazıldı.</p>
         </div>
-        <p>Kısa açıklama: ne işe yarıyor, hangi dille yazıldı.</p>
       </a>
     </div>
   </section>
 
-  <section id="contact" class="section contact-section">
-    <h3 class="section-title"><span class="tag">04</span> İletişim</h3>
-    <p class="section-sub">Bir proje konuşmak, iş birliği yapmak ya da sadece merhaba demek için ulaşabilirsin.</p>
-    <a class="big-email" href="mailto:eren@example.com">eren@example.com</a>
-    <div class="links">
-      <a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://x.com/your-x" target="_blank" rel="noopener">X</a>
-      <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+  <section id="contact" class="section contact-section reveal">
+    <div class="contact-card">
+      <span class="section-badge">İletişim</span>
+      <h2>Birlikte bir şey<br>üretelim mi?</h2>
+      <p class="section-sub">Bir proje konuşmak, iş birliği yapmak ya da sadece merhaba demek için ulaşabilirsin.</p>
+      <a class="btn btn-primary btn-lg" href="mailto:eren@example.com">eren@example.com</a>
+      <div class="social-row social-row-center">
+        <a href="https://github.com/your-github" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/your-x" target="_blank" rel="noopener">X</a>
+        <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+      </div>
     </div>
   </section>
 
 </main>
 
 <footer class="footer">
-  <p>Kocaeli, Türkiye · 40.85°N, 29.88°E</p>
+  <p>Kocaeli, Türkiye</p>
   <p>&copy; <span id="year"></span> Eren Özcan</p>
 </footer>
 
