@@ -75,6 +75,10 @@
     "hsl(220deg 80% 55%)",
     "hsl(265deg 80% 50%)"
   ];
+  // Per-color radius multiplier for classic-mode resting dots, matched
+  // index-for-index to RAINBOW. Same pixel radius, but the indigo/purple
+  // dot reads visually smaller against the sky, so it gets a small boost.
+  var RAINBOW_DOT_BOOST = [1, 1, 1, 1, 1, 1.2];
 
   var canvas = document.getElementById("rainbow-canvas");
   var sky = document.querySelector(".hero-sky");
@@ -182,25 +186,29 @@
         // modern: each row keeps one base color, with seeded random dashes
         // swapped to another color (like the reference art); classic:
         // colors scatter freely across all dots.
-        var color;
+        var color, colorIdx;
         if (cfg.op === "classic") {
-          color = RAINBOW[(i * 5 + j * 3 + cfg.seed) % RAINBOW.length];
+          colorIdx = (i * 5 + j * 3 + cfg.seed) % RAINBOW.length;
+          color = RAINBOW[colorIdx];
         } else {
           var h = (i * 31 + j * 17 + cfg.seed) % 13;
-          color = h < 2
-            ? RAINBOW[(i + 1 + h * 2) % RAINBOW.length]
-            : RAINBOW[i % RAINBOW.length];
+          colorIdx = h < 2 ? (i + 1 + h * 2) % RAINBOW.length : i % RAINBOW.length;
+          color = RAINBOW[colorIdx];
         }
         ctx.globalAlpha = 0.55 + 0.45 * fade;
         if (len < 1) {
           // Resting classic dash: a zero-length round-cap line doesn't
-          // render, so paint the dot (or tiny square) directly.
+          // render, so paint the dot (or tiny square) directly. The indigo
+          // swatch reads visually smaller than the others at equal radius
+          // (low lightness contrast against the sky), so its dots get a
+          // small radius boost to look the same size as the rest.
+          var dotW = w * RAINBOW_DOT_BOOST[colorIdx];
           ctx.fillStyle = color;
           if (cfg.edges === "square") {
-            ctx.fillRect(px - w / 2, py - w / 2, w, w);
+            ctx.fillRect(px - dotW / 2, py - dotW / 2, dotW, dotW);
           } else {
             ctx.beginPath();
-            ctx.arc(px, py, w / 2, 0, Math.PI * 2);
+            ctx.arc(px, py, dotW / 2, 0, Math.PI * 2);
             ctx.fill();
           }
         } else {
@@ -404,4 +412,176 @@
   } else {
     revealEls.forEach(function (el) { el.classList.add("is-visible"); });
   }
+
+  // Language: TR/EN toggle. Elements tagged data-i18n / data-i18n-html /
+  // data-i18n-aria-label / data-i18n-title get swapped from this dictionary;
+  // everything else (names, tech terms already in English, links) is left alone.
+  var LANG_KEY = "site-lang";
+  var TRANSLATIONS = {
+    tr: {
+      "nav.experience": "Deneyim",
+      "nav.projects": "Projeler",
+      "nav.writing": "Yazılar",
+      "nav.education": "Eğitim",
+      "nav.contact": "İletişim",
+      "a11y.sound": "Sesi aç/kapat",
+      "a11y.theme": "Tema değiştir",
+      "a11y.skyConfig": "Gökyüzü ayarları",
+      "a11y.close": "Kapat",
+      "cfg.density": "YOĞUNLUK",
+      "cfg.rows": "SIRA SAYISI",
+      "cfg.operation": "OPERASYON",
+      "cfg.modern": "modern",
+      "cfg.classic": "klasik",
+      "cfg.edges": "KENARLAR",
+      "cfg.round": "yuvarlak",
+      "cfg.square": "kare",
+      "cfg.segments": "SEGMENT DEĞERLERİ",
+      "cfg.padAria": "Segment değerleri: yatay eksen parça uzunluğu, dikey eksen kalınlık. Ok tuşlarıyla ayarlanır.",
+      "cfg.note": "Bu panel gökyüzündeki sanatı özelleştirir. <strong>Değişiklikler bu tarayıcıda saklanır.</strong>",
+      "cfg.random": "RASTGELE",
+      "cfg.randomAria": "Rastgele ayarla",
+      "cfg.reset": "SIFIRLA",
+      "cfg.resetAria": "Sıfırla",
+      "hero.eyebrow": "📍 Kocaeli, Türkiye",
+      "hero.title": "Merhaba, ben<br><span class=\"gradient-text\">Eren Özcan</span>",
+      "hero.bio": "2+ yıllık Unity ve Unreal Engine deneyimiyle gameplay programlama, fizik simülasyonu ve sistem tasarımı üzerine çalışıyorum. Custom yerçekimi mekanikleri, yıkılabilir ortamlar ve modüler yetenek mimarisine sahip tam bir 2D turn-based oyun geliştirdim.",
+      "hero.sayHello": "Merhaba de",
+      "hero.downloadCv": "CV'yi indir",
+      "exp.heading": "Profesyonel deneyim",
+      "exp.sub": "Oyun geliştirme, VR ve yazılım alanlarında edindiğim tecrübeler.",
+      "exp.date1": "Nisan 2023 – Halen",
+      "exp.desc1": "Meta Quest 2 için Unreal Engine ile immersif VR uygulamaları geliştiriyorum; el takibi, controller etkileşimi ve performans optimizasyonu üzerine çalışıyorum.",
+      "exp.date2": "Şubat 2025 – Haziran 2025",
+      "exp.desc2": "ERP sistem geliştirme ve iş süreci otomasyonunda SAP ABAP ile destek verdim; kurumsal uygulamalarda hata ayıklama ve teknik dokümantasyon yaptım.",
+      "exp.date3": "Ağustos 2023 – Eylül 2023",
+      "exp.desc3": "AWS ve Google Cloud üzerinde ölçeklenebilir dağıtımlar için bulut altyapısı yönettim; Docker/Kubernetes ile CI/CD pipeline'ları kurdum.",
+      "exp.date4": "Ağustos 2022 – Eylül 2022",
+      "exp.desc4": "C# ve .NET Framework ile iç yazılım sistemleri geliştirdim; sistem analizi, hata ayıklama ve veritabanı entegrasyonu üzerine çalıştım.",
+      "proj.heading": "Öne çıkan işler",
+      "proj.sub": "Üzerinde çalıştığım / tamamladığım projelerden bir seçki.",
+      "proj.desc1": "Gezegen bazlı custom yerçekimi sistemi ve yıkılabilir ortamlara sahip tam bir 2D turn-based shooter. Rüzgâr direnci ve yerçekimi etkili fizik simülasyonu, OOP tabanlı modüler yetenek mimarisi, aksiyon kuyruğu ve state management içeren combat sistemi; object pooling ile performans optimizasyonu.",
+      "proj.repo": "Repo →",
+      "proj.moreTitle": "Daha fazlası GitHub'da",
+      "proj.moreDesc": "Diğer küçük projelerimi, denemelerimi ve okul projelerimi GitHub profilimde bulabilirsin.",
+      "proj.profile": "Profil →",
+      "writing.heading": "Notlar & öğrendiklerim",
+      "writing.sub": "Ara sıra öğrendiklerimi buraya not düşüyorum.",
+      "writing.status": "2026 — hazırlanıyor",
+      "writing.title1": "Unity'de gezegen bazlı yerçekimi sistemi tasarımı",
+      "writing.title2": "Meta Quest 2 için VR etkileşim sistemleri geliştirmek",
+      "writing.title3": "Turn-based combat mimarisi: action queue ve state management",
+      "edu.date": "Eylül 2020 – Haziran 2025",
+      "edu.degree": "Bilgi Sistemleri Mühendisliği lisans derecesi.",
+      "contact.heading": "Birlikte bir şey<br>üretelim mi?",
+      "contact.sub": "Bir proje konuşmak, iş birliği yapmak ya da sadece merhaba demek için ulaşabilirsin.",
+      "footer.sections": "Bölümler",
+      "footer.links": "Bağlantılar",
+      "footer.email": "E-posta",
+      "footer.location": "Kocaeli, Türkiye",
+      "meta.description": "Eren Özcan | Junior Game Developer & Gameplay Programmer — Unity, Unreal Engine, VR — Kocaeli, Türkiye"
+    },
+    en: {
+      "nav.experience": "Experience",
+      "nav.projects": "Projects",
+      "nav.writing": "Writing",
+      "nav.education": "Education",
+      "nav.contact": "Contact",
+      "a11y.sound": "Toggle sound",
+      "a11y.theme": "Toggle theme",
+      "a11y.skyConfig": "Sky settings",
+      "a11y.close": "Close",
+      "cfg.density": "DENSITY",
+      "cfg.rows": "ROW COUNT",
+      "cfg.operation": "OPERATION",
+      "cfg.modern": "modern",
+      "cfg.classic": "classic",
+      "cfg.edges": "EDGES",
+      "cfg.round": "round",
+      "cfg.square": "square",
+      "cfg.segments": "SEGMENT VALUES",
+      "cfg.padAria": "Segment values: horizontal axis is dash length, vertical axis is thickness. Adjust with arrow keys.",
+      "cfg.note": "This panel customizes the sky art. <strong>Changes are saved in this browser.</strong>",
+      "cfg.random": "RANDOM",
+      "cfg.randomAria": "Randomize",
+      "cfg.reset": "RESET",
+      "cfg.resetAria": "Reset",
+      "hero.eyebrow": "📍 Kocaeli, Turkey",
+      "hero.title": "Hi, I'm<br><span class=\"gradient-text\">Eren Özcan</span>",
+      "hero.bio": "I work on gameplay programming, physics simulation, and system design with 2+ years of Unity and Unreal Engine experience. I built a complete 2D turn-based game with custom gravity mechanics, destructible environments, and a modular ability architecture.",
+      "hero.sayHello": "Say hello",
+      "hero.downloadCv": "Download CV",
+      "exp.heading": "Professional experience",
+      "exp.sub": "Experience I've gained in game development, VR, and software.",
+      "exp.date1": "April 2023 – Present",
+      "exp.desc1": "I develop immersive VR applications for Meta Quest 2 using Unreal Engine; I work on hand tracking, controller interaction, and performance optimization.",
+      "exp.date2": "February 2025 – June 2025",
+      "exp.desc2": "I supported ERP system development and business process automation with SAP ABAP; I handled debugging and technical documentation for enterprise applications.",
+      "exp.date3": "August 2023 – September 2023",
+      "exp.desc3": "I managed cloud infrastructure for scalable deployments on AWS and Google Cloud; I set up CI/CD pipelines with Docker/Kubernetes.",
+      "exp.date4": "August 2022 – September 2022",
+      "exp.desc4": "I developed internal software systems with C# and .NET Framework; I worked on system analysis, debugging, and database integration.",
+      "proj.heading": "Featured work",
+      "proj.sub": "A selection of projects I've worked on or completed.",
+      "proj.desc1": "A complete 2D turn-based shooter with a planet-based custom gravity system and destructible environments. Physics simulation driven by wind resistance and gravity, an OOP-based modular ability architecture, a combat system with an action queue and state management, and performance optimization via object pooling.",
+      "proj.repo": "Repo →",
+      "proj.moreTitle": "More on GitHub",
+      "proj.moreDesc": "You can find my other small projects, experiments, and school projects on my GitHub profile.",
+      "proj.profile": "Profile →",
+      "writing.heading": "Notes & things I've learned",
+      "writing.sub": "I occasionally jot down what I'm learning here.",
+      "writing.status": "2026 — in progress",
+      "writing.title1": "Designing a planet-based gravity system in Unity",
+      "writing.title2": "Building VR interaction systems for Meta Quest 2",
+      "writing.title3": "Turn-based combat architecture: action queue and state management",
+      "edu.date": "September 2020 – June 2025",
+      "edu.degree": "Bachelor's degree in Information Systems Engineering.",
+      "contact.heading": "Shall we build<br>something together?",
+      "contact.sub": "Feel free to reach out to talk about a project, collaborate, or just say hello.",
+      "footer.sections": "Sections",
+      "footer.links": "Links",
+      "footer.email": "Email",
+      "footer.location": "Kocaeli, Turkey",
+      "meta.description": "Eren Özcan | Junior Game Developer & Gameplay Programmer — Unity, Unreal Engine, VR — Kocaeli, Turkey"
+    }
+  };
+
+  var langToggle = document.getElementById("lang-toggle");
+  var metaDescEl = document.querySelector('meta[name="description"]');
+  var storedLang = localStorage.getItem(LANG_KEY);
+  var lang = (storedLang === "tr" || storedLang === "en") ? storedLang : "en";
+
+  function applyLang(l) {
+    lang = l;
+    root.setAttribute("lang", l);
+    var dict = TRANSLATIONS[l];
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var val = dict[el.getAttribute("data-i18n")];
+      if (val != null) el.textContent = val;
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) {
+      var val = dict[el.getAttribute("data-i18n-html")];
+      if (val != null) el.innerHTML = val;
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach(function (el) {
+      var val = dict[el.getAttribute("data-i18n-aria-label")];
+      if (val != null) el.setAttribute("aria-label", val);
+    });
+    document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
+      var val = dict[el.getAttribute("data-i18n-title")];
+      if (val != null) el.setAttribute("title", val);
+    });
+    if (metaDescEl) metaDescEl.setAttribute("content", dict["meta.description"]);
+    if (langToggle) langToggle.setAttribute("data-active", l);
+    if (typeof placeToggleIndicators === "function") placeToggleIndicators();
+  }
+
+  if (langToggle) {
+    langToggle.addEventListener("click", function () {
+      var next = lang === "en" ? "tr" : "en";
+      localStorage.setItem(LANG_KEY, next);
+      applyLang(next);
+    });
+  }
+  applyLang(lang);
 })();

@@ -162,6 +162,23 @@ html[data-theme="dark"] .glow { display: none; }
 html[data-theme="dark"] .icon-sun { display: none; }
 html[data-theme="dark"] .icon-moon { display: block; }
 
+.lang-toggle {
+  width: auto;
+  padding: 0 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  gap: 0.15rem;
+}
+.lang-toggle span { color: var(--muted); transition: color 0.15s ease; }
+.lang-toggle .lang-sep { color: var(--border); }
+.lang-toggle[data-active="tr"] [data-lang-value="tr"],
+.lang-toggle[data-active="en"] [data-lang-value="en"] {
+  color: var(--fg);
+}
+.lang-toggle:hover [data-lang-value] { color: var(--accent); }
+
 /* Layout */
 main {
   max-width: 1080px;

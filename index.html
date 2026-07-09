@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eren Özcan — Junior Game Developer</title>
-<meta name="description" content="Eren Özcan | Junior Game Developer & Gameplay Programmer — Unity, Unreal Engine, VR — Kocaeli, Türkiye">
+<meta name="description" content="Eren Özcan | Junior Game Developer & Gameplay Programmer — Unity, Unreal Engine, VR — Kocaeli, Turkey">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,22 +19,25 @@
 <header class="topbar">
   <a href="#" class="logo">Eren Özcan</a>
   <nav class="nav">
-    <a href="#experience">Deneyim</a>
-    <a href="#projects">Projeler</a>
-    <a href="#writing">Yazılar</a>
-    <a href="#education">Eğitim</a>
-    <a href="#contact">İletişim</a>
+    <a href="#experience" data-i18n="nav.experience">Deneyim</a>
+    <a href="#projects" data-i18n="nav.projects">Projeler</a>
+    <a href="#writing" data-i18n="nav.writing">Yazılar</a>
+    <a href="#education" data-i18n="nav.education">Eğitim</a>
+    <a href="#contact" data-i18n="nav.contact">İletişim</a>
     <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener" class="nav-cv">CV</a>
   </nav>
   <div class="topbar-actions">
-    <button id="sound-toggle" class="theme-toggle sound-toggle" aria-label="Sesi aç/kapat" title="Sesi aç/kapat">
+    <button id="lang-toggle" class="theme-toggle lang-toggle" aria-label="Switch language" title="Switch language">
+      <span data-lang-value="tr">TR</span><span class="lang-sep">/</span><span data-lang-value="en">EN</span>
+    </button>
+    <button id="sound-toggle" class="theme-toggle sound-toggle" aria-label="Sesi aç/kapat" title="Sesi aç/kapat" data-i18n-aria-label="a11y.sound" data-i18n-title="a11y.sound">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <g class="snd-body"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/></g>
         <g class="snd-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></g>
         <g class="snd-x"><path d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></g>
       </svg>
     </button>
-    <button id="theme-toggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+    <button id="theme-toggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir" data-i18n-aria-label="a11y.theme" data-i18n-title="a11y.theme">
       <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     </button>
@@ -57,71 +60,72 @@
         <path class="cloud" d="M2641.4 401.5C2613.31 399.999 2525.75 198 2121.01 198C1862 198 1840 264.5 1806.88 259.5C1773.77 254.499 1723.34 129.991 1562.17 136C1401 142.009 1366.58 313.5 1339 321C1311.42 328.5 1279 226.5 1034.79 234.5C802.99 242.093 724.297 318.5 697 313C669.703 307.5 681 75.9996 430.496 32.4996C214.304 -5.042 99.7464 183.937 60.6394 266.475C51.4353 285.9 27.9703 295.392 8.5729 286.129C-15.3473 274.705 -43 292.144 -43 318.652V429.5C-43 443.859 -31.3592 455.5 -16.9999 455.5H5103C5127.3 455.5 5147 435.8 5147 411.5V232.89C5147 226.643 5146.46 220.404 5144.55 214.457C5136.92 190.729 5108.7 128.5 5022.5 128.5C4881 128.5 4935 253.704 4838.83 249C4808.16 247.499 4757.27 55.5004 4535 59C4312.73 62.4996 4283.98 270.5 4250.5 268.5C4217.02 266.5 4197 199 4037.27 189.5C3834.76 177.455 3790.86 285 3753.5 279C3716.14 273 3652.96 98.8238 3377.5 153.5C3156.46 197.374 3191.5 387.48 3139.82 376.5C3118.64 371.999 3078.5 339 2948.03 339C2894.2 339 2890.37 330.676 2837.19 339C2708.5 359.141 2669.5 403 2641.4 401.5Z"></path>
       </svg>
       <img class="hero-sticker" src="assets/avatar.webp" alt="Eren Özcan" width="600" height="1043">
-      <button id="sky-config-btn" class="sky-config-btn" aria-label="Gökyüzü ayarları" title="Gökyüzü ayarları">
+      <button id="sky-config-btn" class="sky-config-btn" aria-label="Gökyüzü ayarları" title="Gökyüzü ayarları" data-i18n-aria-label="a11y.skyConfig" data-i18n-title="a11y.skyConfig">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.56 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09a1.7 1.7 0 0 0 1.56-1.11 1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34h.09a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.09a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.56 1.03z"/></svg>
       </button>
       <div id="sky-config" class="sky-config" role="dialog" aria-label="Rainbow Configurator">
         <div class="sky-config-head">
           <strong>Rainbow Configurator</strong>
-          <button id="sky-config-close" aria-label="Kapat">×</button>
+          <button id="sky-config-close" aria-label="Kapat" data-i18n-aria-label="a11y.close">×</button>
         </div>
         <div class="cfg-grid">
           <div class="cfg-col">
             <div class="cfg-box">
-              <span class="cfg-label">YOĞUNLUK</span>
-              <input type="range" id="cfg-density" min="12" max="40" step="1" aria-label="Yoğunluk">
+              <span class="cfg-label" data-i18n="cfg.density">YOĞUNLUK</span>
+              <input type="range" id="cfg-density" min="12" max="40" step="1" aria-label="Yoğunluk" data-i18n-aria-label="cfg.density">
             </div>
             <div class="cfg-box">
-              <span class="cfg-label">SIRA SAYISI</span>
-              <input type="range" id="cfg-rows" min="2" max="8" step="1" aria-label="Sıra sayısı">
+              <span class="cfg-label" data-i18n="cfg.rows">SIRA SAYISI</span>
+              <input type="range" id="cfg-rows" min="2" max="8" step="1" aria-label="Sıra sayısı" data-i18n-aria-label="cfg.rows">
             </div>
             <div class="cfg-box-row">
               <div class="cfg-box">
-                <span class="cfg-label">OPERASYON</span>
+                <span class="cfg-label" data-i18n="cfg.operation">OPERASYON</span>
                 <div class="cfg-toggle" id="cfg-op">
                   <span class="cfg-toggle-indicator" aria-hidden="true"></span>
-                  <button data-op="modern" type="button">modern</button>
-                  <button data-op="classic" type="button">klasik</button>
+                  <button data-op="modern" type="button" data-i18n="cfg.modern">modern</button>
+                  <button data-op="classic" type="button" data-i18n="cfg.classic">klasik</button>
                 </div>
               </div>
               <div class="cfg-box">
-                <span class="cfg-label">KENARLAR</span>
+                <span class="cfg-label" data-i18n="cfg.edges">KENARLAR</span>
                 <div class="cfg-toggle" id="cfg-edge">
                   <span class="cfg-toggle-indicator" aria-hidden="true"></span>
-                  <button data-edge="round" type="button">yuvarlak</button>
-                  <button data-edge="square" type="button">kare</button>
+                  <button data-edge="round" type="button" data-i18n="cfg.round">yuvarlak</button>
+                  <button data-edge="square" type="button" data-i18n="cfg.square">kare</button>
                 </div>
               </div>
             </div>
           </div>
           <div class="cfg-box cfg-box-pad">
-            <span class="cfg-label">SEGMENT DEĞERLERİ</span>
+            <span class="cfg-label" data-i18n="cfg.segments">SEGMENT DEĞERLERİ</span>
             <div class="cfg-pad" id="cfg-pad" tabindex="0" role="application"
-                 aria-label="Segment değerleri: yatay eksen parça uzunluğu, dikey eksen kalınlık. Ok tuşlarıyla ayarlanır.">
+                 aria-label="Segment değerleri: yatay eksen parça uzunluğu, dikey eksen kalınlık. Ok tuşlarıyla ayarlanır."
+                 data-i18n-aria-label="cfg.padAria">
               <span class="cfg-pad-handle" aria-hidden="true"></span>
             </div>
           </div>
         </div>
         <div class="cfg-footer">
-          <p class="cfg-note">Bu panel gökyüzündeki sanatı özelleştirir. <strong>Değişiklikler bu tarayıcıda saklanır.</strong></p>
+          <p class="cfg-note" data-i18n-html="cfg.note">Bu panel gökyüzündeki sanatı özelleştirir. <strong>Değişiklikler bu tarayıcıda saklanır.</strong></p>
           <div class="cfg-actions">
             <div class="cfg-action">
-              <span>RASTGELE</span>
-              <button id="cfg-random" type="button" aria-label="Rastgele ayarla"></button>
+              <span data-i18n="cfg.random">RASTGELE</span>
+              <button id="cfg-random" type="button" aria-label="Rastgele ayarla" data-i18n-aria-label="cfg.randomAria"></button>
             </div>
             <div class="cfg-action">
-              <span>SIFIRLA</span>
-              <button id="cfg-reset" type="button" aria-label="Sıfırla"></button>
+              <span data-i18n="cfg.reset">SIFIRLA</span>
+              <button id="cfg-reset" type="button" aria-label="Sıfırla" data-i18n-aria-label="cfg.resetAria"></button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="hero-text reveal">
-      <p class="eyebrow">📍 Kocaeli, Türkiye</p>
-      <h1>Merhaba, ben<br><span class="gradient-text">Eren Özcan</span></h1>
+      <p class="eyebrow" data-i18n="hero.eyebrow">📍 Kocaeli, Türkiye</p>
+      <h1 data-i18n-html="hero.title">Merhaba, ben<br><span class="gradient-text">Eren Özcan</span></h1>
       <p class="role">Junior Game Developer · Gameplay Programmer</p>
-      <p class="bio">
+      <p class="bio" data-i18n="hero.bio">
         2+ yıllık Unity ve Unreal Engine deneyimiyle gameplay programlama, fizik
         simülasyonu ve sistem tasarımı üzerine çalışıyorum. Custom yerçekimi
         mekanikleri, yıkılabilir ortamlar ve modüler yetenek mimarisine sahip
@@ -136,8 +140,8 @@
         <span class="pill">Physics Simulation</span>
       </div>
       <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:erenozcaan@hotmail.com">Merhaba de</a>
-        <a class="btn btn-ghost" href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV'yi indir</a>
+        <a class="btn btn-primary" href="mailto:erenozcaan@hotmail.com" data-i18n="hero.sayHello">Merhaba de</a>
+        <a class="btn btn-ghost" href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener" data-i18n="hero.downloadCv">CV'yi indir</a>
       </div>
       <div class="social-row">
         <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener" aria-label="GitHub">GH</a>
@@ -149,9 +153,9 @@
 
   <section id="experience" class="section reveal">
     <div class="section-head">
-      <span class="section-badge">Deneyim</span>
-      <h2>Profesyonel deneyim</h2>
-      <p class="section-sub">Oyun geliştirme, VR ve yazılım alanlarında edindiğim tecrübeler.</p>
+      <span class="section-badge" data-i18n="nav.experience">Deneyim</span>
+      <h2 data-i18n="exp.heading">Profesyonel deneyim</h2>
+      <p class="section-sub" data-i18n="exp.sub">Oyun geliştirme, VR ve yazılım alanlarında edindiğim tecrübeler.</p>
     </div>
 
     <ul class="timeline timeline-exp">
@@ -159,42 +163,42 @@
         <span class="timeline-dot"></span>
         <div class="exp-head">
           <span class="exp-role">Part-Time VR Developer <span class="exp-company">· Etki-Academy</span></span>
-          <span class="exp-date">Nisan 2023 – Halen</span>
+          <span class="exp-date" data-i18n="exp.date1">Nisan 2023 – Halen</span>
         </div>
-        <p class="exp-desc">Meta Quest 2 için Unreal Engine ile immersif VR uygulamaları geliştiriyorum; el takibi, controller etkileşimi ve performans optimizasyonu üzerine çalışıyorum.</p>
+        <p class="exp-desc" data-i18n="exp.desc1">Meta Quest 2 için Unreal Engine ile immersif VR uygulamaları geliştiriyorum; el takibi, controller etkileşimi ve performans optimizasyonu üzerine çalışıyorum.</p>
       </li>
       <li>
         <span class="timeline-dot"></span>
         <div class="exp-head">
           <span class="exp-role">SAP ABAP Intern <span class="exp-company">· Safir Yazılım</span></span>
-          <span class="exp-date">Şubat 2025 – Haziran 2025</span>
+          <span class="exp-date" data-i18n="exp.date2">Şubat 2025 – Haziran 2025</span>
         </div>
-        <p class="exp-desc">ERP sistem geliştirme ve iş süreci otomasyonunda SAP ABAP ile destek verdim; kurumsal uygulamalarda hata ayıklama ve teknik dokümantasyon yaptım.</p>
+        <p class="exp-desc" data-i18n="exp.desc2">ERP sistem geliştirme ve iş süreci otomasyonunda SAP ABAP ile destek verdim; kurumsal uygulamalarda hata ayıklama ve teknik dokümantasyon yaptım.</p>
       </li>
       <li>
         <span class="timeline-dot"></span>
         <div class="exp-head">
           <span class="exp-role">Cloud Engineering Intern <span class="exp-company">· BLC Communication</span></span>
-          <span class="exp-date">Ağustos 2023 – Eylül 2023</span>
+          <span class="exp-date" data-i18n="exp.date3">Ağustos 2023 – Eylül 2023</span>
         </div>
-        <p class="exp-desc">AWS ve Google Cloud üzerinde ölçeklenebilir dağıtımlar için bulut altyapısı yönettim; Docker/Kubernetes ile CI/CD pipeline'ları kurdum.</p>
+        <p class="exp-desc" data-i18n="exp.desc3">AWS ve Google Cloud üzerinde ölçeklenebilir dağıtımlar için bulut altyapısı yönettim; Docker/Kubernetes ile CI/CD pipeline'ları kurdum.</p>
       </li>
       <li>
         <span class="timeline-dot"></span>
         <div class="exp-head">
           <span class="exp-role">Software Development Intern <span class="exp-company">· Kocaeli University</span></span>
-          <span class="exp-date">Ağustos 2022 – Eylül 2022</span>
+          <span class="exp-date" data-i18n="exp.date4">Ağustos 2022 – Eylül 2022</span>
         </div>
-        <p class="exp-desc">C# ve .NET Framework ile iç yazılım sistemleri geliştirdim; sistem analizi, hata ayıklama ve veritabanı entegrasyonu üzerine çalıştım.</p>
+        <p class="exp-desc" data-i18n="exp.desc4">C# ve .NET Framework ile iç yazılım sistemleri geliştirdim; sistem analizi, hata ayıklama ve veritabanı entegrasyonu üzerine çalıştım.</p>
       </li>
     </ul>
   </section>
 
   <section id="projects" class="section reveal">
     <div class="section-head">
-      <span class="section-badge">Projeler</span>
-      <h2>Öne çıkan işler</h2>
-      <p class="section-sub">Üzerinde çalıştığım / tamamladığım projelerden bir seçki.</p>
+      <span class="section-badge" data-i18n="nav.projects">Projeler</span>
+      <h2 data-i18n="proj.heading">Öne çıkan işler</h2>
+      <p class="section-sub" data-i18n="proj.sub">Üzerinde çalıştığım / tamamladığım projelerden bir seçki.</p>
     </div>
 
     <div class="bento-grid">
@@ -205,7 +209,7 @@
           <h3>Cosmic Rumble — 2D Turn-Based Shooter</h3>
           <span class="stack">Unity · C#</span>
         </div>
-        <p>
+        <p data-i18n="proj.desc1">
           Gezegen bazlı custom yerçekimi sistemi ve yıkılabilir ortamlara sahip
           tam bir 2D turn-based shooter. Rüzgâr direnci ve yerçekimi etkili
           fizik simülasyonu, OOP tabanlı modüler yetenek mimarisi, aksiyon
@@ -219,18 +223,18 @@
           <span class="pill">Unity UI</span>
         </div>
         <div class="project-links">
-          <a href="https://github.com/Eren-Ozcan/CosmicRumble" target="_blank" rel="noopener">Repo →</a>
+          <a href="https://github.com/Eren-Ozcan/CosmicRumble" target="_blank" rel="noopener" data-i18n="proj.repo">Repo →</a>
         </div>
       </article>
 
       <article class="bento-card">
         <div class="card-accent accent-teal"></div>
         <div class="project-head">
-          <h3>Daha fazlası GitHub'da</h3>
+          <h3 data-i18n="proj.moreTitle">Daha fazlası GitHub'da</h3>
         </div>
-        <p>Diğer küçük projelerimi, denemelerimi ve okul projelerimi GitHub profilimde bulabilirsin.</p>
+        <p data-i18n="proj.moreDesc">Diğer küçük projelerimi, denemelerimi ve okul projelerimi GitHub profilimde bulabilirsin.</p>
         <div class="project-links">
-          <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">Profil →</a>
+          <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener" data-i18n="proj.profile">Profil →</a>
         </div>
       </article>
 
@@ -239,34 +243,34 @@
 
   <section id="writing" class="section reveal">
     <div class="section-head">
-      <span class="section-badge">Yazılar</span>
-      <h2>Notlar &amp; öğrendiklerim</h2>
-      <p class="section-sub">Ara sıra öğrendiklerimi buraya not düşüyorum.</p>
+      <span class="section-badge" data-i18n="nav.writing">Yazılar</span>
+      <h2 data-i18n="writing.heading">Notlar &amp; öğrendiklerim</h2>
+      <p class="section-sub" data-i18n="writing.sub">Ara sıra öğrendiklerimi buraya not düşüyorum.</p>
     </div>
 
     <ul class="timeline">
       <li>
         <span class="timeline-dot"></span>
-        <span class="post-date">2026 — hazırlanıyor</span>
-        <a href="#" class="post-title">Unity'de gezegen bazlı yerçekimi sistemi tasarımı</a>
+        <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
+        <a href="#" class="post-title" data-i18n="writing.title1">Unity'de gezegen bazlı yerçekimi sistemi tasarımı</a>
       </li>
       <li>
         <span class="timeline-dot"></span>
-        <span class="post-date">2026 — hazırlanıyor</span>
-        <a href="#" class="post-title">Meta Quest 2 için VR etkileşim sistemleri geliştirmek</a>
+        <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
+        <a href="#" class="post-title" data-i18n="writing.title2">Meta Quest 2 için VR etkileşim sistemleri geliştirmek</a>
       </li>
       <li>
         <span class="timeline-dot"></span>
-        <span class="post-date">2026 — hazırlanıyor</span>
-        <a href="#" class="post-title">Turn-based combat mimarisi: action queue ve state management</a>
+        <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
+        <a href="#" class="post-title" data-i18n="writing.title3">Turn-based combat mimarisi: action queue ve state management</a>
       </li>
     </ul>
   </section>
 
   <section id="education" class="section reveal">
     <div class="section-head">
-      <span class="section-badge">Eğitim</span>
-      <h2>Eğitim</h2>
+      <span class="section-badge" data-i18n="nav.education">Eğitim</span>
+      <h2 data-i18n="nav.education">Eğitim</h2>
     </div>
 
     <div class="edu-card">
@@ -274,9 +278,9 @@
       <div class="oss-body">
         <div class="oss-card-head">
           <span class="oss-name">Kocaeli University — BS in Information Systems Engineering</span>
-          <span class="oss-star">Eylül 2020 – Haziran 2025</span>
+          <span class="oss-star" data-i18n="edu.date">Eylül 2020 – Haziran 2025</span>
         </div>
-        <p>Bilgi Sistemleri Mühendisliği lisans derecesi.</p>
+        <p data-i18n="edu.degree">Bilgi Sistemleri Mühendisliği lisans derecesi.</p>
         <div class="skill-pills">
           <span class="pill">Data Structures</span>
           <span class="pill">OOP</span>
@@ -290,9 +294,9 @@
 
   <section id="contact" class="section contact-section reveal">
     <div class="contact-card">
-      <span class="section-badge">İletişim</span>
-      <h2>Birlikte bir şey<br>üretelim mi?</h2>
-      <p class="section-sub">Bir proje konuşmak, iş birliği yapmak ya da sadece merhaba demek için ulaşabilirsin.</p>
+      <span class="section-badge" data-i18n="nav.contact">İletişim</span>
+      <h2 data-i18n-html="contact.heading">Birlikte bir şey<br>üretelim mi?</h2>
+      <p class="section-sub" data-i18n="contact.sub">Bir proje konuşmak, iş birliği yapmak ya da sadece merhaba demek için ulaşabilirsin.</p>
       <a class="btn btn-primary btn-lg" href="mailto:erenozcaan@hotmail.com">erenozcaan@hotmail.com</a>
       <div class="social-row social-row-center">
         <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">GitHub</a>
@@ -311,22 +315,22 @@
       <p>Junior Game Developer · Gameplay Programmer</p>
     </div>
     <div class="footer-col">
-      <span class="footer-col-title">Bölümler</span>
-      <a href="#experience">Deneyim</a>
-      <a href="#projects">Projeler</a>
-      <a href="#writing">Yazılar</a>
-      <a href="#education">Eğitim</a>
+      <span class="footer-col-title" data-i18n="footer.sections">Bölümler</span>
+      <a href="#experience" data-i18n="nav.experience">Deneyim</a>
+      <a href="#projects" data-i18n="nav.projects">Projeler</a>
+      <a href="#writing" data-i18n="nav.writing">Yazılar</a>
+      <a href="#education" data-i18n="nav.education">Eğitim</a>
     </div>
     <div class="footer-col">
-      <span class="footer-col-title">Bağlantılar</span>
+      <span class="footer-col-title" data-i18n="footer.links">Bağlantılar</span>
       <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">GitHub</a>
       <a href="https://linkedin.com/in/eren-ozcann" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="mailto:erenozcaan@hotmail.com">E-posta</a>
+      <a href="mailto:erenozcaan@hotmail.com" data-i18n="footer.email">E-posta</a>
       <a href="assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>Kocaeli, Türkiye</p>
+    <p data-i18n="footer.location">Kocaeli, Türkiye</p>
     <p>&copy; <span id="year"></span> Eren Özcan</p>
   </div>
 </footer>
