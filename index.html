@@ -56,26 +56,56 @@
           <strong>Rainbow Configurator</strong>
           <button id="sky-config-close" aria-label="Kapat">×</button>
         </div>
-        <label class="cfg-field">
-          <span>YOĞUNLUK</span>
-          <input type="range" id="cfg-density" min="12" max="40" step="1">
-        </label>
-        <label class="cfg-field">
-          <span>SIRA SAYISI</span>
-          <input type="range" id="cfg-rows" min="2" max="8" step="1">
-        </label>
-        <div class="cfg-field">
-          <span>KENARLAR</span>
-          <div class="cfg-toggle">
-            <button data-edge="round" type="button">yuvarlak</button>
-            <button data-edge="square" type="button">kare</button>
+        <div class="cfg-grid">
+          <div class="cfg-col">
+            <div class="cfg-box">
+              <span class="cfg-label">YOĞUNLUK</span>
+              <input type="range" id="cfg-density" min="12" max="40" step="1" aria-label="Yoğunluk">
+            </div>
+            <div class="cfg-box">
+              <span class="cfg-label">SIRA SAYISI</span>
+              <input type="range" id="cfg-rows" min="2" max="8" step="1" aria-label="Sıra sayısı">
+            </div>
+            <div class="cfg-box-row">
+              <div class="cfg-box">
+                <span class="cfg-label">OPERASYON</span>
+                <div class="cfg-toggle" id="cfg-op">
+                  <span class="cfg-toggle-indicator" aria-hidden="true"></span>
+                  <button data-op="modern" type="button">modern</button>
+                  <button data-op="classic" type="button">klasik</button>
+                </div>
+              </div>
+              <div class="cfg-box">
+                <span class="cfg-label">KENARLAR</span>
+                <div class="cfg-toggle" id="cfg-edge">
+                  <span class="cfg-toggle-indicator" aria-hidden="true"></span>
+                  <button data-edge="round" type="button">yuvarlak</button>
+                  <button data-edge="square" type="button">kare</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cfg-box cfg-box-pad">
+            <span class="cfg-label">SEGMENT DEĞERLERİ</span>
+            <div class="cfg-pad" id="cfg-pad" tabindex="0" role="application"
+                 aria-label="Segment değerleri: yatay eksen parça uzunluğu, dikey eksen kalınlık. Ok tuşlarıyla ayarlanır.">
+              <span class="cfg-pad-handle" aria-hidden="true"></span>
+            </div>
           </div>
         </div>
-        <div class="cfg-actions">
-          <button id="cfg-random" type="button">RASTGELE</button>
-          <button id="cfg-reset" type="button">SIFIRLA</button>
+        <div class="cfg-footer">
+          <p class="cfg-note">Bu panel gökyüzündeki sanatı özelleştirir. <strong>Değişiklikler bu tarayıcıda saklanır.</strong></p>
+          <div class="cfg-actions">
+            <div class="cfg-action">
+              <span>RASTGELE</span>
+              <button id="cfg-random" type="button" aria-label="Rastgele ayarla"></button>
+            </div>
+            <div class="cfg-action">
+              <span>SIFIRLA</span>
+              <button id="cfg-reset" type="button" aria-label="Sıfırla"></button>
+            </div>
+          </div>
         </div>
-        <p class="cfg-note">Bu panel gökyüzündeki sanatı özelleştirir. Ayarların bu tarayıcıda saklanır.</p>
       </div>
     </div>
     <div class="hero-text reveal">
