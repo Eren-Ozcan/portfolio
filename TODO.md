@@ -17,6 +17,7 @@ Bu dosya, portfolyo sitesi üzerinde yapılanları ve kalan işleri takip etmek 
   - Projeler: gerçek proje "Cosmic Rumble" (github.com/Eren-Ozcan/CosmicRumble) + GitHub profiline yönlendiren kart; placeholder projeler kaldırıldı
   - "Açık Kaynak" bölümü kaldırıldı (CV'de yayınlanmış paket yok), yerine gerçek "Eğitim" bölümü eklendi (Kocaeli University, BS Information Systems Engineering)
   - Yazılar bölümü placeholder başlıkları gerçek uzmanlık alanına göre güncellendi (hâlâ "hazırlanıyor" durumunda, gerçek yazı yok)
+- [x] Hero arka planı joshwcomeau.com'daki bulut yapısıyla değiştirildi (tepeler kaldırıldı): gökyüzü degradesi + 2 katmanlı bulut bankı + sayfa arka planı renginde ön plan bulut zemini; SVG path'ler `C:\Benim Web Sitem` içindeki HTTrack kopyasından birebir alındı, gökkuşağı aynı yerde (avatara bağlı, bulutların arkasından yükseliyor)
 
 ## Yapılacaklar
 
