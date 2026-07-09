@@ -154,6 +154,17 @@
   var mouseX = -9999, mouseY = -9999, mouseTX = -9999, mouseTY = -9999;
   var grip = 0, inScene = false;
 
+  // Entrance animation: on first load the whole arch unfurls like an opening
+  // fan — every dash starts collapsed at the arc's pivot point (geo.cx/cy,
+  // below the avatar's feet) and flies out to its resting slot. Staggered by
+  // row (inner rows open first) and by distance from the arc's midpoint
+  // (center dashes lead, tips trail), so it reads as a sweep outward rather
+  // than everything popping in at once.
+  var introStart = (typeof performance !== "undefined" ? performance.now() : Date.now());
+  var INTRO_DURATION = 620;
+  var INTRO_ROW_STAGGER = 55;
+  var INTRO_SPAN_STAGGER = 260;
+
   function layoutRainbow() {
     if (!ctx) return;
     var rect = canvas.getBoundingClientRect();
@@ -185,6 +196,10 @@
     if (!ctx || !geo) return;
     ctx.setTransform(geo.dpr, 0, 0, geo.dpr, 0, 0);
     ctx.clearRect(0, 0, geo.w, geo.h);
+
+    // Reduced motion: skip straight to the fully-opened arch.
+    var introElapsed = reduceMotion ? Infinity : (performance.now() - introStart);
+    var centerJ = (cfg.density - 1) / 2;
 
     var lw = Math.max(6, geo.innerR * 0.028) * (0.5 + 1.3 * cfg.segY);
     var rowGap = lw * 0.9;
@@ -222,6 +237,13 @@
         var px = geo.cx + rx * Math.cos(theta);
         var py = geo.cy + r * Math.sin(theta);
 
+        // Entrance progress for this dash: 0 = still collapsed at the pivot,
+        // 1 = fully flown out to its resting slot (px, py).
+        var spanFrac = cfg.density > 1 ? Math.abs(j - centerJ) / centerJ : 0;
+        var introDelay = i * INTRO_ROW_STAGGER + spanFrac * INTRO_SPAN_STAGGER;
+        var introT = Math.max(0, Math.min(1, (introElapsed - introDelay) / INTRO_DURATION));
+        var reveal = 1 - Math.pow(1 - introT, 3);
+
         // How strongly the cursor has grabbed this dash (0..1, smoothstep)
         var mdx = mouseX - px;
         var mdy = mouseY - py;
@@ -255,30 +277,37 @@
           colorIdx = h < 2 ? (i + 1 + h * 2) % RAINBOW.length : i % RAINBOW.length;
           color = RAINBOW[colorIdx];
         }
-        ctx.globalAlpha = 0.55 + 0.45 * fade;
+        if (reveal <= 0) continue;
+        // Rendered position flies out from the arc's pivot to its resting
+        // slot; size ramps in alongside it so dashes pop rather than smear.
+        var rpx = geo.cx + (px - geo.cx) * reveal;
+        var rpy = geo.cy + (py - geo.cy) * reveal;
+        var sizeMul = 0.3 + 0.7 * reveal;
+
+        ctx.globalAlpha = (0.55 + 0.45 * fade) * reveal;
         if (len < 1) {
           // Resting classic dash: a zero-length round-cap line doesn't
           // render, so paint the dot (or tiny square) directly. The indigo
           // swatch reads visually smaller than the others at equal radius
           // (low lightness contrast against the sky), so its dots get a
           // small radius boost to look the same size as the rest.
-          var dotW = w * RAINBOW_DOT_BOOST[colorIdx];
+          var dotW = w * RAINBOW_DOT_BOOST[colorIdx] * sizeMul;
           ctx.fillStyle = color;
           if (cfg.edges === "square") {
-            ctx.fillRect(px - dotW / 2, py - dotW / 2, dotW, dotW);
+            ctx.fillRect(rpx - dotW / 2, rpy - dotW / 2, dotW, dotW);
           } else {
             ctx.beginPath();
-            ctx.arc(px, py, dotW / 2, 0, Math.PI * 2);
+            ctx.arc(rpx, rpy, dotW / 2, 0, Math.PI * 2);
             ctx.fill();
           }
         } else {
-          ctx.lineWidth = w;
+          ctx.lineWidth = w * sizeMul;
           ctx.strokeStyle = color;
-          var hx = Math.cos(ang) * (len / 2);
-          var hy = Math.sin(ang) * (len / 2);
+          var hx = Math.cos(ang) * (len * sizeMul / 2);
+          var hy = Math.sin(ang) * (len * sizeMul / 2);
           ctx.beginPath();
-          ctx.moveTo(px - hx, py - hy);
-          ctx.lineTo(px + hx, py + hy);
+          ctx.moveTo(rpx - hx, rpy - hy);
+          ctx.lineTo(rpx + hx, rpy + hy);
           ctx.stroke();
         }
       }
