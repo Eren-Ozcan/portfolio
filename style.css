@@ -138,6 +138,11 @@ html[data-theme="dark"] .glow { display: none; }
 }
 .nav-cv:hover { border-color: var(--accent); color: var(--accent) !important; }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+}
+
 .theme-toggle {
   background: none;
   border: 1px solid var(--border);
