@@ -388,9 +388,15 @@
       cfg.density = parseInt(densityInput.value, 10);
       saveCfg(); buildRainbow();
     });
+    densityInput.addEventListener("change", function () {
+      if (soundOn) SOUNDS.click();
+    });
     rowsInput.addEventListener("input", function () {
       cfg.rows = parseInt(rowsInput.value, 10);
       saveCfg(); buildRainbow();
+    });
+    rowsInput.addEventListener("change", function () {
+      if (soundOn) SOUNDS.click();
     });
     edgeBtns.forEach(function (b) {
       b.addEventListener("click", function () {
@@ -492,6 +498,7 @@
       "a11y.theme": "Tema değiştir",
       "a11y.skyConfig": "Gökyüzü ayarları",
       "a11y.close": "Kapat",
+      "cfg.title": "Gökkuşağı Yapılandırıcısı",
       "cfg.density": "YOĞUNLUK",
       "cfg.rows": "SIRA SAYISI",
       "cfg.operation": "OPERASYON",
@@ -555,6 +562,7 @@
       "a11y.theme": "Toggle theme",
       "a11y.skyConfig": "Sky settings",
       "a11y.close": "Close",
+      "cfg.title": "Rainbow Configurator",
       "cfg.density": "DENSITY",
       "cfg.rows": "ROW COUNT",
       "cfg.operation": "OPERATION",
