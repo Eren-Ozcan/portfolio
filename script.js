@@ -7,11 +7,71 @@
   var initial = stored || (prefersDark ? "dark" : "light");
   root.setAttribute("data-theme", initial);
 
+  // UI sound effects: small procedural blips synthesized with the Web Audio
+  // API (no sound files, no licensing to worry about). On by default; every
+  // sound only ever fires from inside a click handler, so the browser's
+  // autoplay restriction (audio needs a user gesture) is never an issue.
+  var SOUND_KEY = "sound-on";
+  var storedSound = localStorage.getItem(SOUND_KEY);
+  var soundOn = storedSound === null ? true : storedSound === "true";
+  var audioCtx = null;
+  function getAudioCtx() {
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!audioCtx) audioCtx = new Ctx();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  }
+  // A short tone sweep with a soft attack/decay envelope so it reads as a
+  // gentle blip instead of a click/pop.
+  function playTone(from, to, opts) {
+    var ctx = getAudioCtx();
+    if (!ctx) return;
+    opts = opts || {};
+    var dur = opts.duration || 0.1;
+    var now = ctx.currentTime;
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = opts.type || "sine";
+    osc.frequency.setValueAtTime(from, now);
+    osc.frequency.exponentialRampToValueAtTime(Math.max(to, 1), now + dur);
+    gain.gain.setValueAtTime(0.0001, now);
+    gain.gain.linearRampToValueAtTime(opts.gain || 0.08, now + 0.008);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + dur + 0.02);
+  }
+  var SOUNDS = {
+    soundOn: function () { playTone(520, 780, { duration: 0.12, type: "sine", gain: 0.09 }); },
+    soundOff: function () { playTone(520, 280, { duration: 0.12, type: "sine", gain: 0.08 }); },
+    themeLight: function () { playTone(420, 900, { duration: 0.15, type: "triangle", gain: 0.07 }); },
+    themeDark: function () { playTone(900, 340, { duration: 0.16, type: "triangle", gain: 0.07 }); },
+    click: function () { playTone(600, 520, { duration: 0.05, type: "square", gain: 0.05 }); }
+  };
+
+  var soundToggle = document.getElementById("sound-toggle");
+  function syncSoundIcon() {
+    if (soundToggle) soundToggle.classList.toggle("is-muted", !soundOn);
+  }
+  syncSoundIcon();
+  if (soundToggle) {
+    soundToggle.addEventListener("click", function () {
+      soundOn = !soundOn;
+      localStorage.setItem(SOUND_KEY, soundOn);
+      syncSoundIcon();
+      // Plays regardless of the resulting state: this click is the explicit
+      // on/off gesture, so it always gets its own confirmation blip.
+      if (soundOn) SOUNDS.soundOn(); else SOUNDS.soundOff();
+    });
+  }
+
   toggle.addEventListener("click", function () {
     var current = root.getAttribute("data-theme");
     var next = current === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     localStorage.setItem("theme", next);
+    if (soundOn) { if (next === "dark") SOUNDS.themeDark(); else SOUNDS.themeLight(); }
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
@@ -336,12 +396,14 @@
       b.addEventListener("click", function () {
         cfg.edges = b.getAttribute("data-edge");
         saveCfg(); syncPanel(); buildRainbow();
+        if (soundOn) SOUNDS.click();
       });
     });
     opBtns.forEach(function (b) {
       b.addEventListener("click", function () {
         cfg.op = b.getAttribute("data-op");
         saveCfg(); syncPanel(); buildRainbow();
+        if (soundOn) SOUNDS.click();
       });
     });
 
@@ -384,6 +446,7 @@
       cfg.segY = Math.random();
       cfg.seed = Math.floor(Math.random() * 100000);
       saveCfg(); syncPanel(); buildRainbow();
+      if (soundOn) SOUNDS.click();
     });
     document.getElementById("cfg-reset").addEventListener("click", function () {
       cfg = {
@@ -392,6 +455,7 @@
         segX: CFG_DEFAULTS.segX, segY: CFG_DEFAULTS.segY, seed: CFG_DEFAULTS.seed
       };
       saveCfg(); syncPanel(); buildRainbow();
+      if (soundOn) SOUNDS.click();
     });
   }
 
@@ -581,6 +645,7 @@
       var next = lang === "en" ? "tr" : "en";
       localStorage.setItem(LANG_KEY, next);
       applyLang(next);
+      if (soundOn) SOUNDS.click();
     });
   }
   applyLang(lang);

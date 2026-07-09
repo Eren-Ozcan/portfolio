@@ -162,6 +162,11 @@ html[data-theme="dark"] .glow { display: none; }
 html[data-theme="dark"] .icon-sun { display: none; }
 html[data-theme="dark"] .icon-moon { display: block; }
 
+/* Sound toggle: waves icon when audible, crossed-out speaker when muted. */
+.sound-toggle .snd-x { display: none; }
+.sound-toggle.is-muted .snd-waves { display: none; }
+.sound-toggle.is-muted .snd-x { display: block; }
+
 .lang-toggle {
   width: auto;
   padding: 0 0.65rem;
