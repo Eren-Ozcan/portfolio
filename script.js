@@ -430,7 +430,10 @@
     pad.addEventListener("pointermove", function (e) {
       if (padDragging) padSet(e.clientX, e.clientY);
     });
-    pad.addEventListener("pointerup", function () { padDragging = false; });
+    pad.addEventListener("pointerup", function () {
+      padDragging = false;
+      if (soundOn) SOUNDS.click();
+    });
     pad.addEventListener("pointercancel", function () { padDragging = false; });
     pad.addEventListener("keydown", function (e) {
       var step = 0.05;
@@ -439,6 +442,7 @@
       else if (e.key === "ArrowDown") cfg.segY = Math.max(0, cfg.segY - step);
       else if (e.key === "ArrowUp") cfg.segY = Math.min(1, cfg.segY + step);
       else return;
+      if (soundOn) SOUNDS.click();
       e.preventDefault();
       saveCfg(); syncPad(); buildRainbow();
     });
