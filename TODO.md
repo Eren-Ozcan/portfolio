@@ -28,16 +28,18 @@ Bu dosya, portfolyo sitesi üzerinde yapılanları ve kalan işleri takip etmek 
 - [ ] GitHub'daki diğer repolar (web-php, kulup-yonetim-sistemi, svelte-calender-app, KOUAI_YapayZeka_Python, vb.) küçük okul projeleri gibi görünüyor, portföyde öne çıkarılmadı
 
 ### Domain + Cloudflare Pages deploy
-- [ ] Domain satın al (öneri: `erenozcan.dev` veya `.com`, Cloudflare Registrar üzerinden alınması kar marjı olmadığı için avantajlı)
-- [ ] Cloudflare hesabı oluştur (dash.cloudflare.com)
-- [ ] Domain başka bir sağlayıcıdan alındıysa nameserver'ları Cloudflare'ın verdiği adreslerle değiştir
-- [ ] Cloudflare Pages projesi oluştur: Workers & Pages → Create → Pages → Connect to Git → `Eren-Ozcan/portfolio` reposunu seç
+- [x] Domain satın alındı: `erenozcan.dev`, Spaceship üzerinden
+- [x] Cloudflare hesabı oluşturuldu (GitHub ile giriş)
+- [x] Spaceship'te nameserver'lar Cloudflare'ınkilerle değiştirildi: `luke.ns.cloudflare.com`, `stevie.ns.cloudflare.com`
+- [x] Cloudflare Pages projesi oluşturuldu: proje adı `erenozcan-portfolio` (`portfolio` adı başkasına ait olduğu için), GitHub'da yalnızca `Eren-Ozcan/portfolio` reposuna erişim izni verildi
   - Framework preset: None
   - Build command: boş
   - Build output directory: /
-- [ ] Pages projesine custom domain bağla (Custom domains → Set up a custom domain)
+  - `erenozcan-portfolio.pages.dev` adresine ilk deploy başarılı
+- [x] Pages projesine custom domain bağlandı (`erenozcan.dev`), DNS yayılması tamamlandı — site artık `https://erenozcan.dev` üzerinden erişilebiliyor
 
 ## Notlar
 - Deploy yöntemi olarak GitHub bağlantılı Cloudflare Pages seçildi (her `main` push'unda otomatik yeniden deploy olur)
 - GitHub CLI zaten `Eren-Ozcan` hesabına bağlı ve authenticated durumda
 - Detaylı deploy adımları için `README.md` dosyasına da bakılabilir
+- Cloudflare Pages proje adı `erenozcan-portfolio` (fallback pages.dev adresi: `erenozcan-portfolio.pages.dev`), canlı domain: `erenozcan.dev`
