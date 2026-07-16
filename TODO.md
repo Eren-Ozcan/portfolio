@@ -18,6 +18,7 @@ Bu dosya, portfolyo sitesi üzerinde yapılanları ve kalan işleri takip etmek 
   - "Açık Kaynak" bölümü kaldırıldı (CV'de yayınlanmış paket yok), yerine gerçek "Eğitim" bölümü eklendi (Kocaeli University, BS Information Systems Engineering)
   - Yazılar bölümü placeholder başlıkları gerçek uzmanlık alanına göre güncellendi (hâlâ "hazırlanıyor" durumunda, gerçek yazı yok)
 - [x] Hero arka planı joshwcomeau.com'daki bulut yapısıyla değiştirildi (tepeler kaldırıldı): gökyüzü degradesi + 2 katmanlı bulut bankı + sayfa arka planı renginde ön plan bulut zemini; SVG path'ler `C:\Benim Web Sitem` içindeki HTTrack kopyasından birebir alındı, gökkuşağı aynı yerde (avatara bağlı, bulutların arkasından yükseliyor)
+- [x] CV güncellendi (`assets/Eren_Ozcan_CV.pdf`, Desktop'taki güncel PDF'den): Etki-Academy VR Developer rolü artık bitmiş görünüyor (Nisan 2023 – Nisan 2025, "Halen"/"Present" değil), açıklama geçmiş zamana çevrildi — TR/EN i18n string'leri (`script.js`) ve `index.html`'deki varsayılan metin birlikte güncellendi
 
 ## Yapılacaklar
 
