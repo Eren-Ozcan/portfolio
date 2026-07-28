@@ -267,21 +267,36 @@
       <p class="section-sub" data-i18n="writing.sub">Ara sıra öğrendiklerimi buraya not düşüyorum.</p>
     </div>
 
-    <ul class="timeline">
-      <li>
+    <div class="writing-filter" role="group" aria-label="Kategoriye göre filtrele">
+      <button type="button" class="filter-btn is-active" data-filter="all" data-i18n="writing.filterAll">Tümü</button>
+      <button type="button" class="filter-btn" data-filter="game-dev" data-i18n="writing.filterGameDev">Game Dev Notes</button>
+      <button type="button" class="filter-btn" data-filter="ai-security" data-i18n="writing.filterAiSecurity">AI Security</button>
+    </div>
+
+    <ul class="timeline" id="writing-timeline">
+      <li data-cat="game-dev">
         <span class="timeline-dot"></span>
-        <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
-        <a href="#" class="post-title" data-i18n="writing.title1">Unity'de gezegen bazlı yerçekimi sistemi tasarımı</a>
+        <span class="post-cat post-cat-game-dev" data-i18n="writing.catGameDev">Game Dev Notes</span>
+        <span class="post-date" data-i18n="writing.date1">28 Temmuz 2026</span>
+        <a href="writing/cosmic-rumble-gravity.html" class="post-title" data-i18n="writing.title1">Unity'de gezegen bazlı yerçekimi sistemi tasarımı</a>
       </li>
-      <li>
+      <li data-cat="game-dev">
         <span class="timeline-dot"></span>
+        <span class="post-cat post-cat-game-dev" data-i18n="writing.catGameDev">Game Dev Notes</span>
         <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
         <a href="#" class="post-title" data-i18n="writing.title2">Meta Quest 2 için VR etkileşim sistemleri geliştirmek</a>
       </li>
-      <li>
+      <li data-cat="game-dev">
         <span class="timeline-dot"></span>
+        <span class="post-cat post-cat-game-dev" data-i18n="writing.catGameDev">Game Dev Notes</span>
         <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
         <a href="#" class="post-title" data-i18n="writing.title3">Turn-based combat mimarisi: action queue ve state management</a>
+      </li>
+      <li data-cat="ai-security">
+        <span class="timeline-dot"></span>
+        <span class="post-cat post-cat-ai-security" data-i18n="writing.catAiSecurity">AI Security</span>
+        <span class="post-date" data-i18n="writing.status">2026 — hazırlanıyor</span>
+        <a href="#" class="post-title" data-i18n="writing.title4">LLM tabanlı sistemlerde prompt injection savunmaları</a>
       </li>
     </ul>
   </section>
