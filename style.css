@@ -1078,3 +1078,94 @@ main {
   .footer-brand { grid-column: span 1; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; }
 }
+
+/* Writing: category badges + simple filter */
+.post-cat {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.post-cat-game-dev {
+  color: var(--accent-3);
+  background: color-mix(in srgb, var(--accent-3) 14%, transparent);
+}
+.post-cat-ai-security {
+  color: var(--label);
+  background: color-mix(in srgb, var(--label) 14%, transparent);
+}
+
+.writing-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+.filter-btn {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.filter-btn:hover { color: var(--fg); border-color: var(--accent); }
+.filter-btn.is-active { color: var(--fg); border-color: var(--accent); }
+.timeline li.is-filtered-out { display: none; }
+
+/* Article pages (writing/*.html): narrow reading column reusing the site's
+   shell (topbar/footer/toggles) without the hero scene. */
+.article-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(3rem, 6vw, 5rem);
+}
+.article-back {
+  display: inline-block;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  transition: color 0.15s ease;
+}
+.article-back:hover { color: var(--accent); }
+.article-header { margin-bottom: 2.5rem; }
+.article-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.article-date { color: var(--muted); font-size: 0.85rem; }
+.article-header h1 {
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.article-body p {
+  color: var(--muted);
+  margin: 0 0 1.3rem;
+  max-width: 68ch;
+}
+.article-body h2 {
+  font-size: 1.35rem;
+  margin: 2.2rem 0 0.9rem;
+  letter-spacing: -0.005em;
+}
+.article-body code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.88em;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+}
