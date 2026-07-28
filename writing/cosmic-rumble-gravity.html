@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet-Based Gravity System in Cosmic Rumble — Eren Özcan</title>
+<meta name="description" content="How Cosmic Rumble's planet-based custom gravity system works in Unity — radial forces, surface alignment, wind resistance, and object pooling.">
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<header class="topbar at-top">
+  <a href="../index.html" class="logo">Eren Özcan</a>
+  <nav class="nav">
+    <a href="../index.html#experience" data-i18n="nav.experience">Deneyim</a>
+    <a href="../index.html#projects" data-i18n="nav.projects">Projeler</a>
+    <a href="../index.html#writing" data-i18n="nav.writing">Yazılar</a>
+    <a href="../index.html#education" data-i18n="nav.education">Eğitim</a>
+    <a href="../index.html#contact" data-i18n="nav.contact">İletişim</a>
+    <a href="../assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener" class="nav-cv">CV</a>
+  </nav>
+  <div class="topbar-actions">
+    <button id="lang-toggle" class="theme-toggle lang-toggle" aria-label="Switch language" title="Switch language">
+      <span data-lang-value="tr">TR</span><span class="lang-sep">/</span><span data-lang-value="en">EN</span>
+    </button>
+    <button id="sound-toggle" class="theme-toggle sound-toggle" aria-label="Sesi aç/kapat" title="Sesi aç/kapat" data-i18n-aria-label="a11y.sound" data-i18n-title="a11y.sound">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <g class="snd-body"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/></g>
+        <g class="snd-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></g>
+        <g class="snd-x"><path d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></g>
+      </svg>
+    </button>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir" data-i18n-aria-label="a11y.theme" data-i18n-title="a11y.theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <article class="article-section reveal">
+    <a href="../index.html#writing" class="article-back" data-i18n="post.gravity.back">← Yazılara dön</a>
+
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="post-cat post-cat-game-dev" data-i18n="writing.catGameDev">Game Dev Notes</span>
+        <span class="article-date" data-i18n="writing.date1">28 Temmuz 2026</span>
+      </div>
+      <h1 data-i18n="writing.title1">Unity'de gezegen bazlı yerçekimi sistemi tasarımı</h1>
+    </div>
+
+    <div class="article-body">
+      <p data-i18n="post.gravity.pIntro">Cosmic Rumble'da her seviye küçük, yuvarlak bir gezegenin üzerinde geçiyor. Unity'nin varsayılan Rigidbody2D yerçekimi tek bir global aşağı vektörü varsayıyor; oyuncular, mermiler ve efektler gezegenin yüzeyine yapışıp merkeze doğru çekilmesi gerektiğinde bu yaklaşım işe yaramıyor. Bu yüzden her gezegenin kendi merkezine göre çalışan custom bir radyal yerçekimi sistemi kurduk.</p>
+
+      <h2 data-i18n="post.gravity.h2Design">Sistem tasarımı</h2>
+      <p data-i18n="post.gravity.pDesign">Her gezegen nesnesi bir merkez nokta ve bir yerçekimi kuvveti (gezegenin "kütlesine" bağlı) tanımlıyor. Sahnedeki her Rigidbody2D için Unity'nin gravityScale değeri sıfırlanıyor ve yerçekimi elle, her FixedUpdate'te uygulanıyor. Böylece aynı sahnede birden fazla gezegen olsa bile her biri kendi çekim alanını koruyor.</p>
+
+      <h2 data-i18n="post.gravity.h2Calc">Yerçekimi hesaplama</h2>
+      <p data-i18n-html="post.gravity.pCalc">Hesaplama basit: yön vektörü nesnenin pozisyonundan gezegenin merkezine doğru normalize ediliyor, kuvvet bu yönde gezegenin çekim gücüyle çarpılıp <code>Rigidbody2D.AddForce</code> ile uygulanıyor. Ayrıca nesnenin "yukarısı" gezegenin yüzey normaline hizalanacak şekilde yumuşak bir rotasyon uygulanıyor, böylece karakterler ve mermiler gezegenin eğriliğine göre doğru yönde duruyor.</p>
+
+      <h2 data-i18n="post.gravity.h2Wind">Rüzgar direnci</h2>
+      <p data-i18n="post.gravity.pWind">Salt yerçekimi yeterli değildi — Worms tarzı topçu atışlarının inandırıcı hissettirmesi için her gezegene rüzgar yönü ve şiddeti eklendi. Mermi hızına ters yönde çalışan bir sürtünme kuvveti ve gezegene özel rüzgar vektörü, atış yörüngesinin hem yerçekimi eğriliğine hem rüzgara göre hesaplanmasını zorunlu kılıyor — oyuncunun nişan alırken iki değişkeni birden dikkate alması gerekiyor.</p>
+
+      <h2 data-i18n="post.gravity.h2Perf">Performans: object pooling</h2>
+      <p data-i18n="post.gravity.pPerf">Sahnede aynı anda onlarca mermi ve parçacık, her FixedUpdate'te kendi yerçekimi hesaplarını yapıyor. Bunu ucuz tutmak için iki şey yapıldı: her nesne sadece en yakın/ilgili gezegenin çekimini hesaplıyor (sahnedeki tüm gezegenlerin toplamını almak yerine), ve mermi/parçacık nesneleri instantiate/destroy yerine object pooling ile yeniden kullanılıyor — bu da GC spike'larını ortadan kaldırdı.</p>
+
+      <h2 data-i18n="post.gravity.h2Conclusion">Sonuç</h2>
+      <p data-i18n="post.gravity.pConclusion">Bu radyal yerçekimi sistemi Cosmic Rumble'ın en ayırt edici mekaniklerinden biri oldu. Combat tarafında action queue ve state management üzerine kurulu turn-based savaş mimarisini ayrı bir yazıda ele alacağım.</p>
+    </div>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo">Eren Özcan</a>
+      <p>Junior Game Developer · Gameplay Programmer</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title" data-i18n="footer.sections">Bölümler</span>
+      <a href="../index.html#experience" data-i18n="nav.experience">Deneyim</a>
+      <a href="../index.html#projects" data-i18n="nav.projects">Projeler</a>
+      <a href="../index.html#writing" data-i18n="nav.writing">Yazılar</a>
+      <a href="../index.html#education" data-i18n="nav.education">Eğitim</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title" data-i18n="footer.links">Bağlantılar</span>
+      <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/eren-ozcann" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:erenozcaan@hotmail.com" data-i18n="footer.email">E-posta</a>
+      <a href="../assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer.location">Kocaeli, Türkiye</p>
+    <p>&copy; <span id="year"></span> Eren Özcan</p>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
