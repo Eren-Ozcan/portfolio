@@ -498,6 +498,24 @@
     });
   }
 
+  // Writing section: simple category filter (all / game-dev / ai-security).
+  // Guarded so pages without the timeline (article pages) skip it silently.
+  var filterBtns = document.querySelectorAll(".filter-btn");
+  var writingItems = document.querySelectorAll("#writing-timeline li");
+  if (filterBtns.length && writingItems.length) {
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var filter = btn.getAttribute("data-filter");
+        filterBtns.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        writingItems.forEach(function (li) {
+          var show = filter === "all" || li.getAttribute("data-cat") === filter;
+          li.classList.toggle("is-filtered-out", !show);
+        });
+        if (soundOn) SOUNDS.click();
+      });
+    });
+  }
+
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     var observer = new IntersectionObserver(
@@ -574,9 +592,28 @@
       "writing.heading": "Notlar & öğrendiklerim",
       "writing.sub": "Ara sıra öğrendiklerimi buraya not düşüyorum.",
       "writing.status": "2026 — hazırlanıyor",
+      "writing.date1": "28 Temmuz 2026",
       "writing.title1": "Unity'de gezegen bazlı yerçekimi sistemi tasarımı",
       "writing.title2": "Meta Quest 2 için VR etkileşim sistemleri geliştirmek",
       "writing.title3": "Turn-based combat mimarisi: action queue ve state management",
+      "writing.title4": "LLM tabanlı sistemlerde prompt injection savunmaları",
+      "writing.filterAll": "Tümü",
+      "writing.filterGameDev": "Game Dev Notes",
+      "writing.filterAiSecurity": "AI Security",
+      "writing.catGameDev": "Game Dev Notes",
+      "writing.catAiSecurity": "AI Security",
+      "post.gravity.back": "← Yazılara dön",
+      "post.gravity.pIntro": "Cosmic Rumble'da her seviye küçük, yuvarlak bir gezegenin üzerinde geçiyor. Unity'nin varsayılan Rigidbody2D yerçekimi tek bir global aşağı vektörü varsayıyor; oyuncular, mermiler ve efektler gezegenin yüzeyine yapışıp merkeze doğru çekilmesi gerektiğinde bu yaklaşım işe yaramıyor. Bu yüzden her gezegenin kendi merkezine göre çalışan custom bir radyal yerçekimi sistemi kurduk.",
+      "post.gravity.h2Design": "Sistem tasarımı",
+      "post.gravity.pDesign": "Her gezegen nesnesi bir merkez nokta ve bir yerçekimi kuvveti (gezegenin \"kütlesine\" bağlı) tanımlıyor. Sahnedeki her Rigidbody2D için Unity'nin gravityScale değeri sıfırlanıyor ve yerçekimi elle, her FixedUpdate'te uygulanıyor. Böylece aynı sahnede birden fazla gezegen olsa bile her biri kendi çekim alanını koruyor.",
+      "post.gravity.h2Calc": "Yerçekimi hesaplama",
+      "post.gravity.pCalc": "Hesaplama basit: yön vektörü nesnenin pozisyonundan gezegenin merkezine doğru normalize ediliyor, kuvvet bu yönde gezegenin çekim gücüyle çarpılıp <code>Rigidbody2D.AddForce</code> ile uygulanıyor. Ayrıca nesnenin \"yukarısı\" gezegenin yüzey normaline hizalanacak şekilde yumuşak bir rotasyon uygulanıyor, böylece karakterler ve mermiler gezegenin eğriliğine göre doğru yönde duruyor.",
+      "post.gravity.h2Wind": "Rüzgar direnci",
+      "post.gravity.pWind": "Salt yerçekimi yeterli değildi — Worms tarzı topçu atışlarının inandırıcı hissettirmesi için her gezegene rüzgar yönü ve şiddeti eklendi. Mermi hızına ters yönde çalışan bir sürtünme kuvveti ve gezegene özel rüzgar vektörü, atış yörüngesinin hem yerçekimi eğriliğine hem rüzgara göre hesaplanmasını zorunlu kılıyor — oyuncunun nişan alırken iki değişkeni birden dikkate alması gerekiyor.",
+      "post.gravity.h2Perf": "Performans: object pooling",
+      "post.gravity.pPerf": "Sahnede aynı anda onlarca mermi ve parçacık, her FixedUpdate'te kendi yerçekimi hesaplarını yapıyor. Bunu ucuz tutmak için iki şey yapıldı: her nesne sadece en yakın/ilgili gezegenin çekimini hesaplıyor (sahnedeki tüm gezegenlerin toplamını almak yerine), ve mermi/parçacık nesneleri instantiate/destroy yerine object pooling ile yeniden kullanılıyor — bu da GC spike'larını ortadan kaldırdı.",
+      "post.gravity.h2Conclusion": "Sonuç",
+      "post.gravity.pConclusion": "Bu radyal yerçekimi sistemi Cosmic Rumble'ın en ayırt edici mekaniklerinden biri oldu. Combat tarafında action queue ve state management üzerine kurulu turn-based savaş mimarisini ayrı bir yazıda ele alacağım.",
       "edu.date": "Eylül 2020 – Haziran 2025",
       "edu.degree": "Bilgi Sistemleri Mühendisliği lisans derecesi.",
       "contact.heading": "Birlikte bir şey<br>üretelim mi?",
@@ -640,9 +677,28 @@
       "writing.heading": "Notes & things I've learned",
       "writing.sub": "I occasionally jot down what I'm learning here.",
       "writing.status": "2026 — in progress",
+      "writing.date1": "July 28, 2026",
       "writing.title1": "Designing a planet-based gravity system in Unity",
       "writing.title2": "Building VR interaction systems for Meta Quest 2",
       "writing.title3": "Turn-based combat architecture: action queue and state management",
+      "writing.title4": "Prompt injection defenses in LLM-based systems",
+      "writing.filterAll": "All",
+      "writing.filterGameDev": "Game Dev Notes",
+      "writing.filterAiSecurity": "AI Security",
+      "writing.catGameDev": "Game Dev Notes",
+      "writing.catAiSecurity": "AI Security",
+      "post.gravity.back": "← Back to writing",
+      "post.gravity.pIntro": "In Cosmic Rumble, every level takes place on a small, round planet. Unity's default Rigidbody2D gravity assumes a single global down vector, which breaks down the moment players, projectiles, and effects need to stick to a curved surface and get pulled toward its center. So I built a custom radial gravity system that works per planet.",
+      "post.gravity.h2Design": "System design",
+      "post.gravity.pDesign": "Each planet object defines a center point and a gravity strength (tied to the planet's \"mass\"). Every Rigidbody2D in the scene has its gravityScale zeroed out, and gravity is applied manually every FixedUpdate instead — so multiple planets can coexist in the same scene, each keeping its own gravity field.",
+      "post.gravity.h2Calc": "Calculating gravity",
+      "post.gravity.pCalc": "The math is simple: a direction vector from the object's position to the planet's center gets normalized, and the force is that direction times the planet's gravity strength, applied via <code>Rigidbody2D.AddForce</code>. On top of that, a soft rotation aligns the object's \"up\" with the planet's surface normal, so characters and projectiles orient correctly as the surface curves under them.",
+      "post.gravity.h2Wind": "Wind resistance",
+      "post.gravity.pWind": "Gravity alone wasn't enough — to make Worms-style artillery shots feel convincing, each planet also got a wind direction and strength. A drag force opposing projectile velocity plus a per-planet wind vector means aiming a shot requires accounting for both the gravity curve and the wind push at the same time.",
+      "post.gravity.h2Perf": "Performance: object pooling",
+      "post.gravity.pPerf": "With dozens of projectiles and particles running their own gravity calculation every FixedUpdate, two things kept it cheap: each object only computes gravity from the nearest relevant planet instead of summing every planet in the scene, and projectiles/particles are reused via object pooling instead of being instantiated and destroyed — which got rid of GC spikes.",
+      "post.gravity.h2Conclusion": "Wrapping up",
+      "post.gravity.pConclusion": "This radial gravity system ended up being one of Cosmic Rumble's most distinctive mechanics. I'll cover the turn-based combat architecture — the action queue and state management behind it — in a separate post.",
       "edu.date": "September 2020 – June 2025",
       "edu.degree": "Bachelor's degree in Information Systems Engineering.",
       "contact.heading": "Shall we build<br>something together?",
