@@ -1097,6 +1097,10 @@ main {
   color: var(--label);
   background: color-mix(in srgb, var(--label) 14%, transparent);
 }
+.post-cat-mapping {
+  color: var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 14%, transparent);
+}
 
 .writing-filter {
   display: flex;
