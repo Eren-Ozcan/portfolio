@@ -1,10 +1,10 @@
 # Eren Özcan — Portfolio
 
-Kişisel portföy sitem. Statik HTML/CSS/JS — framework yok, build adımı yok. Cloudflare Pages üzerinde yayında; `main` branch'e her push otomatik deploy tetikler.
+My personal portfolio site. Static HTML/CSS/JS — no framework, no build step. Live on Cloudflare Pages; every push to `main` triggers an automatic deploy.
 
-## Yerelde çalıştırma
+## Running locally
 
-`index.html` dosyasını doğrudan tarayıcıda açmak yeterli. İstenirse basit bir local server ile:
+Just open `index.html` directly in a browser. Or, with a simple local server:
 
 ```
 npx serve .
@@ -13,10 +13,10 @@ npx serve .
 ## Deploy (Cloudflare Pages)
 
 1. Cloudflare Dashboard → Workers & Pages → Create → Pages → Connect to Git
-2. Bu repoyu seç
-3. Build ayarları: **Framework preset: None**, **Build command:** boş, **Build output directory:** `/`
-4. Her `main` push'unda otomatik yeniden deploy olur
+2. Select this repo
+3. Build settings: **Framework preset: None**, **Build command:** empty, **Build output directory:** `/`
+4. Every push to `main` triggers an automatic redeploy
 
 ## Custom domain
 
-Cloudflare Pages projesi → Custom domains → Set up a custom domain. Domain Cloudflare'da yönetiliyorsa DNS kaydı otomatik eklenir.
+Cloudflare Pages project → Custom domains → Set up a custom domain. If the domain is managed in Cloudflare, the DNS record is added automatically.
