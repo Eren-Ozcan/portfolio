@@ -1149,6 +1149,14 @@ main {
   margin-bottom: 1rem;
 }
 .article-date { color: var(--muted); font-size: 0.85rem; }
+.article-author { color: var(--muted); font-size: 0.85rem; }
+.article-author a {
+  color: var(--fg);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.article-author a:hover { color: var(--accent); border-color: var(--accent); }
 .article-header h1 {
   font-size: clamp(1.8rem, 4.5vw, 2.6rem);
   line-height: 1.2;
@@ -1172,4 +1180,26 @@ main {
   border: 1px solid var(--border);
   border-radius: 4px;
   padding: 0.1rem 0.4rem;
+}
+.article-body a {
+  color: var(--accent);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+.article-body a:hover { border-color: var(--accent); }
+.article-body ul {
+  color: var(--muted);
+  margin: 0 0 1.3rem;
+  padding-left: 1.2rem;
+  max-width: 68ch;
+}
+.article-body ul li { margin-bottom: 0.5rem; }
+.article-sources {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.9rem;
+}
+.article-sources li {
+  padding-left: 1rem;
+  border-left: 2px solid var(--border);
 }
