@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Security Is My Problem Now — Eren Özcan</title>
+<meta name="description" content="A forgotten MCP server sitting in one of my own .mcp.json files turned into a series about actually auditing what my AI agents can access.">
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<header class="topbar at-top">
+  <a href="../index.html" class="logo">Eren Özcan</a>
+  <nav class="nav">
+    <a href="../index.html#experience" data-i18n="nav.experience">Deneyim</a>
+    <a href="../index.html#projects" data-i18n="nav.projects">Projeler</a>
+    <a href="../index.html#writing" data-i18n="nav.writing">Yazılar</a>
+    <a href="../index.html#education" data-i18n="nav.education">Eğitim</a>
+    <a href="../index.html#contact" data-i18n="nav.contact">İletişim</a>
+    <a href="../assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener" class="nav-cv">CV</a>
+  </nav>
+  <div class="topbar-actions">
+    <button id="lang-toggle" class="theme-toggle lang-toggle" aria-label="Switch language" title="Switch language">
+      <span data-lang-value="tr">TR</span><span class="lang-sep">/</span><span data-lang-value="en">EN</span>
+    </button>
+    <button id="sound-toggle" class="theme-toggle sound-toggle" aria-label="Sesi aç/kapat" title="Sesi aç/kapat" data-i18n-aria-label="a11y.sound" data-i18n-title="a11y.sound">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <g class="snd-body"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/></g>
+        <g class="snd-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></g>
+        <g class="snd-x"><path d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></g>
+      </svg>
+    </button>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir" data-i18n-aria-label="a11y.theme" data-i18n-title="a11y.theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <article class="article-section reveal">
+    <a href="../index.html#writing" class="article-back">← Back to writing</a>
+
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="post-cat post-cat-ai-security">AI Security</span>
+        <span class="article-date">August 9, 2026</span>
+        <span class="article-author">By <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">Eren Özcan</a></span>
+      </div>
+      <h1>AI security is my problem now</h1>
+    </div>
+
+    <div class="article-body">
+      <p>A few days ago I was working on something completely unrelated when I noticed an old <code>injection-test</code> MCP server sitting in one of my <code>.mcp.json</code> files.</p>
+      <p>I had completely forgotten about it.</p>
+      <p>It wasn't doing anything bad. I had added it months ago while testing something and apparently never bothered removing it. Normally I'd just delete the line and move on.</p>
+      <p>This time I stopped for a second.</p>
+      <p>I use Claude Code pretty much every day. It has access to most of the projects I'm actively working on — including some of the studio stuff for YILK GAMES, my portfolio, and various automation scripts. I've also got a handful of MCP servers connected to it. One for Unity, one for TouchDesigner, GitHub, and a few smaller tools I've written myself.</p>
+      <p>They can read files. Some of them can modify things. Some can run commands. Some can interact with services.</p>
+      <p>And I realized something slightly uncomfortable:</p>
+      <p><strong>I don't actually know what I've given them access to anymore.</strong></p>
+      <p>That's probably a problem.</p>
+
+      <h2>Turns out I'm exactly the person these security papers are talking about</h2>
+      <p>I've been reading more about AI agent security recently, and the funny thing is that most of the examples don't feel like some distant enterprise problem.</p>
+      <p>They sound like my setup.</p>
+      <p>There's a lot of discussion around things like least agency — basically, an agent shouldn't have more permissions than it needs to complete the task.</p>
+      <p>My approach so far has been considerably less sophisticated:</p>
+      <blockquote>If it works, don't touch it.</blockquote>
+      <p>That's fine until the thing doing the work isn't just a script anymore, but an AI agent that can decide what to do next.</p>
+      <p>That's when permissions start to matter a lot more.</p>
+
+      <h2>That stupid config file got me thinking</h2>
+      <p>My first reaction to the forgotten MCP server was basically "I'll clean this up later."</p>
+      <p>Then I started thinking about everything else I've probably left lying around.</p>
+      <p>Old environment variables. Test scripts. Credentials in places they shouldn't be. MCP servers I installed for a one-off experiment. Dependencies I haven't looked at in months.</p>
+      <p>None of those things necessarily need to be malicious to become a problem.</p>
+      <p>If an agent can access them, they're part of the environment the agent can potentially reason about and use.</p>
+      <p>And that's the part I hadn't really thought about before.</p>
+      <p>The security problem isn't necessarily an AI deciding to attack you.</p>
+      <p>It can be much more boring than that.</p>
+      <p>You give it a goal. It hits a roadblock. It looks around for another way to accomplish the goal. And if you've accidentally given it access to something useful, it may use it.</p>
+      <p>That changes how I think about my development environment.</p>
+
+      <h2>So I'm going to test my own setup</h2>
+      <p>I'm not particularly interested in writing another generic "AI security is important" post.</p>
+      <p>I'd rather find out what I have actually exposed.</p>
+      <p>So that's what this series is going to be about.</p>
+      <p>I'm going to go through my own setup, figure out exactly what my MCP servers expose, look at what an agent can actually access, and then try to break things deliberately.</p>
+      <p>The plan for the next posts:</p>
+      <ul>
+        <li><strong>Part 2 — The four big threats:</strong> prompt injection, excessive agency, jailbreaks, and the AI supply chain.</li>
+        <li><strong>Part 3 — MCP Security 101:</strong> what the security model actually looks like and where the dangerous assumptions are.</li>
+        <li><strong>Part 4 — Auditing my own setup:</strong> finding out what Claude Code and my MCP servers can actually touch.</li>
+        <li><strong>Part 5 — Fixing it:</strong> permissions, isolation, secrets, and some basic guardrails.</li>
+      </ul>
+      <p>I have a feeling this is going to uncover more than a few things I'd rather not have left lying around.</p>
+    </div>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo">Eren Özcan</a>
+      <p>Junior Game Developer · Gameplay Programmer</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title" data-i18n="footer.sections">Bölümler</span>
+      <a href="../index.html#experience" data-i18n="nav.experience">Deneyim</a>
+      <a href="../index.html#projects" data-i18n="nav.projects">Projeler</a>
+      <a href="../index.html#writing" data-i18n="nav.writing">Yazılar</a>
+      <a href="../index.html#education" data-i18n="nav.education">Eğitim</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title" data-i18n="footer.links">Bağlantılar</span>
+      <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/eren-ozcann" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:erenozcaan@hotmail.com" data-i18n="footer.email">E-posta</a>
+      <a href="../assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer.location">Kocaeli, Türkiye</p>
+    <p>&copy; <span id="year"></span> Eren Özcan</p>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
