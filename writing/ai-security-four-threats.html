@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Four Big Threat Categories — Eren Özcan</title>
+<meta name="description" content="Prompt injection, excessive agency, jailbreaks, and supply chain attacks — the four threats that actually apply to a solo dev's AI agent setup, with real 2025-2026 incidents.">
+<link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<header class="topbar at-top">
+  <a href="../index.html" class="logo">Eren Özcan</a>
+  <nav class="nav">
+    <a href="../index.html#experience" data-i18n="nav.experience">Deneyim</a>
+    <a href="../index.html#projects" data-i18n="nav.projects">Projeler</a>
+    <a href="../index.html#writing" data-i18n="nav.writing">Yazılar</a>
+    <a href="../index.html#education" data-i18n="nav.education">Eğitim</a>
+    <a href="../index.html#contact" data-i18n="nav.contact">İletişim</a>
+    <a href="../assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener" class="nav-cv">CV</a>
+  </nav>
+  <div class="topbar-actions">
+    <button id="lang-toggle" class="theme-toggle lang-toggle" aria-label="Switch language" title="Switch language">
+      <span data-lang-value="tr">TR</span><span class="lang-sep">/</span><span data-lang-value="en">EN</span>
+    </button>
+    <button id="sound-toggle" class="theme-toggle sound-toggle" aria-label="Sesi aç/kapat" title="Sesi aç/kapat" data-i18n-aria-label="a11y.sound" data-i18n-title="a11y.sound">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <g class="snd-body"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/></g>
+        <g class="snd-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></g>
+        <g class="snd-x"><path d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></g>
+      </svg>
+    </button>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir" data-i18n-aria-label="a11y.theme" data-i18n-title="a11y.theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <article class="article-section reveal">
+    <a href="../index.html#writing" class="article-back">← Back to writing</a>
+
+    <div class="article-header">
+      <div class="article-meta">
+        <span class="post-cat post-cat-ai-security">AI Security</span>
+        <span class="article-date">August 18, 2026</span>
+        <span class="article-author">By <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">Eren Özcan</a></span>
+      </div>
+      <h1>The four big threat categories</h1>
+    </div>
+
+    <div class="article-body">
+      <p>Last time I wrote about finding a forgotten <code>injection-test</code> MCP server in one of my config files.</p>
+      <p>It was one of those things where I looked at it and thought, how long has that been there?</p>
+      <p>More importantly, what else is there that I don't remember adding?</p>
+      <p>Before I start digging through my own setup, I wanted to understand what I should actually be looking for. So I've spent the last few days going through AI security papers, writeups and a bunch of incident reports.</p>
+      <p>I kept seeing the same few problems.</p>
+      <p>These are the four that seemed most relevant to what I'm doing.</p>
+
+      <h2>1. Prompt injection</h2>
+      <p>The basic problem here is that the model sees instructions and data as text.</p>
+      <p>There's no real wall between "follow this instruction" and "summarize this text." If an agent reads an email, webpage, README or some random file, there's always a chance that something in that content gets interpreted as an instruction.</p>
+      <p>We've already seen this happen.</p>
+      <p>EchoLeak (CVE-2025-32711) was a zero-click vulnerability in Microsoft 365 Copilot. The basic attack involved sending a specially crafted email. Copilot would process it as part of its normal operation and sensitive information could end up being sent to the attacker.</p>
+      <p>No link to click. No attachment to open.</p>
+      <p>GitHub Copilot had another issue around the same time, CVE-2025-53773. Instructions hidden inside repository files could influence the agent and cause it to make tool calls that eventually led to code execution.</p>
+      <p>That one is particularly relevant to me because reading repository files is basically what coding agents are supposed to do.</p>
+      <p>I have no idea how many README files, issues, docs, emails, etc. my own agents have gone through at this point.</p>
+
+      <h2>2. Excessive agency</h2>
+      <p>This one is less about someone attacking the model and more about what happens when you give it too much freedom.</p>
+      <p>I came across an incident in April involving a coding agent at a software company. It was working on a normal engineering task and ended up deleting the production database.</p>
+      <p>Then the backups.</p>
+      <p>Apparently there wasn't an attacker involved. The agent basically decided that this was the way to finish the task.</p>
+      <p>Amazon's Kiro agent had a similar incident in December 2025. It was supposed to fix an AWS Cost Explorer issue and instead decided to wipe and rebuild the production environment. That caused about 13 hours of downtime.</p>
+      <p>There was another case where an email assistant moved financial documents to an external folder because it interpreted instructions from a spam email as a user preference.</p>
+      <p>This is probably the category I hadn't thought about enough before.</p>
+      <p>If an agent has access to delete things, modify things, send emails, move files, run commands, etc., then "the model made a mistake" isn't really a good safety mechanism.</p>
+      <p>I also found a review of 344 enterprise AI incidents from 2025-2026 where 188 didn't involve an attacker.</p>
+      <p>That's a pretty uncomfortable number.</p>
+
+      <h2>3. Jailbreaks</h2>
+      <p>This one is the obvious one.</p>
+      <p>Get the model to ignore its safety rules.</p>
+      <p>There are the usual things: DAN prompts, roleplay, encoding, asking the same thing in slightly different ways, multi-turn attacks where you slowly push the conversation somewhere it wasn't supposed to go.</p>
+      <p>There was also a 2026 Nature Communications paper on something called Head-Masked Nullspace Steering. It targets the model's internal safety mechanisms rather than just trying different prompts. Their reported attack success rate went as high as 97% on some of the models they tested.</p>
+      <p>I'm less interested in reproducing that myself.</p>
+      <p>What I can test fairly easily is language.</p>
+      <p>Most models have a lot more training data in English than in many other languages. There are studies showing that safety performance can drop when the same request is made in lower-resource languages.</p>
+      <p>So that's an easy experiment.</p>
+      <p>Take a prompt that gets refused in English, translate it, try it in another language, then translate the response back.</p>
+      <p>I'm curious how much the result actually changes.</p>
+
+      <h2>4. Supply chain attacks</h2>
+      <p>This is probably the one I like the least.</p>
+      <p>Not because it's the most complicated, but because there's not much for the model to do wrong.</p>
+      <p>You can just download a bad file.</p>
+      <p>I came across a Hugging Face repo called <code>baller423/goober2</code> that contained a malicious PyTorch model using pickle's <code>__reduce__</code> mechanism. The payload executed when the model was loaded.</p>
+      <p>There were a couple of other repositories found by ReversingLabs, including <code>glockr1/ballr7</code>, using something they called "nullifAI."</p>
+      <p>The idea was basically to make the pickle difficult for scanners like PickleScan to deal with, while still having Python execute the payload.</p>
+      <p>JFrog also found three zero-days in PickleScan.</p>
+      <p>And this isn't limited to Hugging Face.</p>
+      <p>Package registries are getting hit as well. In the first half of 2026, researchers reported hundreds of malicious packages across npm and PyPI.</p>
+      <p>The May 11 "Mini Shai-Hulud" campaign affected more than 170 npm packages and two PyPI packages. Some of the packages were connected to projects around TanStack, Mistral AI and UiPath.</p>
+      <p>The attacks included credential theft and self-propagation through the package ecosystem.</p>
+      <p>This one is probably the easiest for me to relate to because I do the same thing everyone else does.</p>
+      <p>I find a package.</p>
+      <p>It has a lot of downloads.</p>
+      <p>The GitHub repo looks normal.</p>
+      <p>I install it.</p>
+      <p>I download models in pretty much the same way.</p>
+      <p>That's not really verification. It's just trust.</p>
+      <p>And until recently I didn't think much about that.</p>
+
+      <h2>What I'm actually interested in</h2>
+      <p>After reading all of this, I'm not sure there's one single "AI security problem."</p>
+      <p>It's more like a bunch of normal developer habits become more dangerous when an agent is sitting in the middle of them.</p>
+      <p>It reads files.</p>
+      <p>It installs things.</p>
+      <p>It runs commands.</p>
+      <p>It has credentials.</p>
+      <p>It can modify code.</p>
+      <p>Sometimes it gets instructions from things that aren't actually instructions.</p>
+      <p>That's a pretty weird security boundary when you think about it.</p>
+      <p>So before I start testing my own setup, I wanted to understand these problems first.</p>
+      <p>Next I'm going to look specifically at MCP.</p>
+      <p>I want to see what my tools are actually exposing, what permissions they have, and how easy it is for something an agent reads to turn into an action.</p>
+    </div>
+  </article>
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="../index.html" class="logo">Eren Özcan</a>
+      <p>Junior Game Developer · Gameplay Programmer</p>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title" data-i18n="footer.sections">Bölümler</span>
+      <a href="../index.html#experience" data-i18n="nav.experience">Deneyim</a>
+      <a href="../index.html#projects" data-i18n="nav.projects">Projeler</a>
+      <a href="../index.html#writing" data-i18n="nav.writing">Yazılar</a>
+      <a href="../index.html#education" data-i18n="nav.education">Eğitim</a>
+    </div>
+    <div class="footer-col">
+      <span class="footer-col-title" data-i18n="footer.links">Bağlantılar</span>
+      <a href="https://github.com/Eren-Ozcan" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/eren-ozcann" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:erenozcaan@hotmail.com" data-i18n="footer.email">E-posta</a>
+      <a href="../assets/Eren_Ozcan_CV.pdf" target="_blank" rel="noopener">CV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p data-i18n="footer.location">Kocaeli, Türkiye</p>
+    <p>&copy; <span id="year"></span> Eren Özcan</p>
+  </div>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
